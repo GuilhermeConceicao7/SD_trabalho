@@ -1,12 +1,18 @@
 package sd2526.trab.api;
 
+import jakarta.persistence.*;
+
 /**
  * Represents a user in the system.
  */
+@Entity
 public class User {
-    private String name;	
+    @Id
+    private String name;
     private String pwd;
     private String domain;
+
+    @Column(length = 255)
     private String displayName;
 
     public User() {
