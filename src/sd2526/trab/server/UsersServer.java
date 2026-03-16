@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import org.glassfish.jersey.jdkhttp.JdkHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
+import sd2526.trab.server.discovery.Discovery;
 import sd2526.trab.server.resources.UsersResource;
 
 public class UsersServer {
@@ -19,7 +20,7 @@ public class UsersServer {
   }
 
   public static final int PORT = 8081;
-  public static final String SERVICE = "UsersService";
+  public static final String SERVICE = "Users";
   private static final String SERVER_URI_FMT = "http://%s:%s/rest";
 
   public static void main(String[] args) {
@@ -30,9 +31,14 @@ public class UsersServer {
 
       String ip = InetAddress.getLocalHost().getHostAddress();
       String serverURI = String.format(SERVER_URI_FMT, ip, PORT);
+
       JdkHttpServerFactory.createHttpServer(URI.create(serverURI), config);
 
-      Log.info(String.format("%s Server ready @ %s\n", SERVICE, serverURI));
+      String hostname = InetAddress.getLocalHost().getHostName();
+      String domain = hostname.substring(hostname.indexOf('.') + 1);
+
+      Discovery discovery = new Discovery(SERVICE, domain, serverURI);
+      discovery.start();
 
       // More code can be executed here...
     } catch (Exception e) {

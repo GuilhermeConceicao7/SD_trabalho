@@ -8,6 +8,7 @@ C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\api\Message.java
 C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\api\rest\RestMessages.java
 C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\api\rest\RestUsers.java
 C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\api\Result.java
+C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\api\ServiceInfo.java
 C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\api\User.java
 C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\client\CreateUserClient.java
 C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\client\DeleteUserClient.java
@@ -15,6 +16,11 @@ C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\client\GetUserClient.ja
 C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\client\rest\RestUsersClient.java
 C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\client\SearchUsersClient.java
 C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\client\UpdateUserClient.java
+C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\server\discovery\Discovery.java
+C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\server\GatewayServer.java
+C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\server\MessagesServer.java
 C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\server\persistence\Hibernate.java
+C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\server\resources\GatewayResource.java
+C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\server\resources\MessagesResource.java
 C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\server\resources\UsersResource.java
 C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\server\UsersServer.java
