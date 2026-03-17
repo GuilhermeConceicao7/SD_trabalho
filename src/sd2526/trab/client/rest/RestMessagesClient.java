@@ -54,23 +54,12 @@ public class RestMessagesClient {
     if (pwd == null || msg == null)
       return Result.error(ErrorCode.BAD_REQUEST);
 
-    String userName = msg.getSender();
-    if(userName.contains("@")){
-       String[] sender = userName.split("@");
-       userName = sender[0];
-    } 
-    
-    Result<User> user = RestUsersClient.getUser(userName, pwd);
-
-    
-
-    if()
-
     for (int i = 0; i < MAX_RETRIES; i++) {
       try {
-        Response r = target.request()
-            .accept(MediaType.APPLICATION_JSON)
-            .post(Entity.entity(msg, MediaType.APPLICATION_JSON));
+        Response r = target.queryParam("pwd", pwd)
+                    .request()
+                    .accept(MediaType.APPLICATION_JSON)
+                    .post(Entity.entity(msg, MediaType.APPLICATION_JSON));
 
         int status = r.getStatus();
         if (status != Status.OK.getStatusCode())

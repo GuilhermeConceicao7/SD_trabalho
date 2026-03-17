@@ -14,6 +14,7 @@ sd2526\trab\api\grpc\Messages$PostMessageArgs$1.class
 sd2526\trab\api\grpc\Messages$RemoveInboxMessageArgs.class
 sd2526\trab\api\grpc\Messages$DeleteMessageArgsOrBuilder.class
 sd2526\trab\api\grpc\Messages$SearchInboxArgs$Builder.class
+sd2526\trab\api\grpc\Messages$GrpcMessageOrBuilder.class
 sd2526\trab\api\java\Users.class
 sd2526\trab\api\grpc\Users$DeleteUserResult$Builder.class
 sd2526\trab\api\grpc\GrpcUsersGrpc$2.class
@@ -22,6 +23,7 @@ sd2526\trab\api\grpc\Users$SearchUsersArgs$1.class
 sd2526\trab\api\grpc\GrpcUsersGrpc$GrpcUsersStub.class
 sd2526\trab\api\grpc\GrpcMessagesGrpc$GrpcMessagesFutureStub.class
 sd2526\trab\api\grpc\Messages$RemoveInboxMessageArgs$1.class
+sd2526\trab\api\grpc\Messages$GrpcMessage$Builder.class
 sd2526\trab\api\grpc\Users$DeleteUserArgsOrBuilder.class
 sd2526\trab\api\grpc\Users$UpdateUserResult$1.class
 sd2526\trab\api\User.class
@@ -38,6 +40,7 @@ sd2526\trab\api\grpc\Messages$DeleteMessageArgs$1.class
 sd2526\trab\api\grpc\Users$GetUserArgs$1.class
 sd2526\trab\api\grpc\Users$UpdateUserResultOrBuilder.class
 sd2526\trab\api\grpc\Messages$GetInboxMessageArgs$1.class
+sd2526\trab\api\grpc\Messages$GrpcMessage$1.class
 sd2526\trab\server\GatewayServer.class
 sd2526\trab\api\grpc\Users$DeleteUserResultOrBuilder.class
 sd2526\trab\api\grpc\Users$SearchUsersArgs.class
@@ -63,11 +66,13 @@ sd2526\trab\api\grpc\Messages$PostMessageResult$Builder.class
 sd2526\trab\api\grpc\Users$DeleteUserResult$1.class
 sd2526\trab\api\grpc\GrpcMessagesGrpc$1.class
 sd2526\trab\api\grpc\Users$GetUserResult$1.class
+sd2526\trab\server\MessagesServer.class
 sd2526\trab\api\grpc\Messages$SearchInboxResult.class
 sd2526\trab\api\java\Messages.class
 sd2526\trab\api\grpc\GrpcUsersGrpc.class
 sd2526\trab\api\grpc\GrpcUsersGrpc$GrpcUsersFutureStub.class
 sd2526\trab\api\grpc\Users$DeleteUserResult.class
+sd2526\trab\server\resources\MessagesResource.class
 sd2526\trab\api\grpc\Messages$PostMessageArgsOrBuilder.class
 sd2526\trab\api\grpc\GrpcUsersGrpc$MethodHandlers.class
 sd2526\trab\api\grpc\GrpcMessagesGrpc$GrpcMessagesMethodDescriptorSupplier.class
@@ -75,6 +80,7 @@ sd2526\trab\api\grpc\Messages$GetInboxMessageArgsOrBuilder.class
 sd2526\trab\api\grpc\GrpcUsersGrpc$GrpcUsersFileDescriptorSupplier.class
 sd2526\trab\api\grpc\GrpcUsersGrpc$GrpcUsersBlockingV2Stub.class
 sd2526\trab\api\grpc\Messages$RemoveInboxMessageArgs$Builder.class
+sd2526\trab\api\grpc\Messages$GrpcMessage.class
 sd2526\trab\api\grpc\Users$UpdateUserResult$Builder.class
 sd2526\trab\api\grpc\GrpcMessagesGrpc$GrpcMessagesStub.class
 sd2526\trab\api\grpc\Messages$GetAllInboxMessagesArgsOrBuilder.class
@@ -109,6 +115,7 @@ sd2526\trab\client\rest\RestUsersClient$1.class
 sd2526\trab\api\grpc\Users$PostUserResult.class
 sd2526\trab\api\grpc\GrpcMessagesGrpc$4.class
 sd2526\trab\client\SearchUsersClient.class
+sd2526\trab\client\rest\RestMessagesClient.class
 sd2526\trab\api\grpc\Messages$PostMessageResult$1.class
 sd2526\trab\api\grpc\Messages$GetAllInboxMessagesArgs$1.class
 sd2526\trab\api\grpc\Users$GetUserResult.class
