@@ -31,7 +31,7 @@ public class Discovery {
   private final String serviceURI;
   private final MulticastSocket ms;
 
-  ConcurrentHashMap<String, CopyOnWriteArrayList<ServiceInfo>> serviceMap = new ConcurrentHashMap<>();
+  static ConcurrentHashMap<String, CopyOnWriteArrayList<ServiceInfo>> serviceMap = new ConcurrentHashMap<>();
 
   public Discovery(String serviceName, String domain, String serviceURI) throws IOException {
 
@@ -149,7 +149,7 @@ public class Discovery {
    * @return an array of URI with the service instances discovered.
    * 
    */
-  public URI[] knownUrisOf(String serviceName, int minReplies) {
+  public static URI[] knownUrisOf(String serviceName, int minReplies) {
 
     while (true) {
       List<ServiceInfo> list = serviceMap.get(serviceName);

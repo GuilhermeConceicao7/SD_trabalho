@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.logging.Logger;
 
-import sd2526.trab.api.Result;
 import sd2526.trab.api.User;
+import sd2526.trab.api.java.Result;
 import sd2526.trab.client.rest.RestUsersClient;
 
 public class UpdateUserClient {

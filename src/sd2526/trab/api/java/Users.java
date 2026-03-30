@@ -2,7 +2,6 @@ package sd2526.trab.api.java;
 
 import java.util.List;
 
-import sd2526.trab.api.Result;
 import sd2526.trab.api.User;
 
 public interface Users {
@@ -83,5 +82,7 @@ public interface Users {
 	 *         BAD_REQUEST if the parameters are invalid (eg., null parameters).
 	 */
 	Result<List<User>> searchUsers(String name, String pwd, String query);
+
+	Result<User> authenticateUser(String sender, String pwd);
 
 }

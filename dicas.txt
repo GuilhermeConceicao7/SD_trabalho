@@ -1,0 +1,1 @@
+fazer post message tem de ser assicrono, a ordem de pedidios tem de ser fifo exemplo fazer envio e delete tem de seguir esta ordem.

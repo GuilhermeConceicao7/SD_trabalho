@@ -4,7 +4,7 @@ import java.util.logging.Logger;
 
 public class GatewayServer {
 
-  private static Logger Log = Logger.getLogger(UsersServer.class.getName());
+  private static Logger Log = Logger.getLogger(GatewayServer.class.getName());
 
   static {
     System.setProperty("java.net.preferIPv4Stack", "true");

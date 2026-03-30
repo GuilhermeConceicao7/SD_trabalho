@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.logging.Logger;
 
-import sd2526.trab.api.Result;
 import sd2526.trab.api.User;
+import sd2526.trab.api.java.Result;
 import sd2526.trab.client.rest.RestUsersClient;
 
 public class CreateUserClient {
@@ -29,7 +29,7 @@ public class CreateUserClient {
 
 		RestUsersClient client = new RestUsersClient(URI.create(serverUrl));
 
-		Result<String> result = client.createUser(usr);
+		Result<String> result = client.postUser(usr);
 		if (result.isOK())
 			Log.info("Created user:" + result.value());
 		else
