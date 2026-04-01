@@ -107,4 +107,6 @@ public interface Messages {
 	 */
 	Result<List<String>> searchInbox(String name, String pwd, String query);
 
+	Result<Void> forwardMessage(String msgId, Message msg);
+
 }

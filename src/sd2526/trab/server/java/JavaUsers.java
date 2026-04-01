@@ -73,7 +73,6 @@ public class JavaUsers implements Users {
       return Result.error(ErrorCode.INTERNAL_ERROR);
     }
 
-    // Check if user exists and password matches
     if (user == null || !user.getPwd().equals(pwd)) {
       Log.info("User does not exist or password is incorrect.");
       return Result.error(ErrorCode.FORBIDDEN);
@@ -100,7 +99,7 @@ public class JavaUsers implements Users {
       user = hibernate.get(User.class, name);
 
       if (user == null || !user.getPwd().equals(pwd)) {
-        Log.info("User nao existe ou password errada");
+        Log.info("User does not exist or password is incorrect.");
         return Result.error(ErrorCode.FORBIDDEN);
       }
 
@@ -141,7 +140,6 @@ public class JavaUsers implements Users {
       return Result.error(ErrorCode.INTERNAL_ERROR);
     }
 
-    // Check if user exists and password matches
     if (user == null || !user.getPwd().equals(pwd)) {
       Log.info("User does not exist or password is incorrect.");
       return Result.error(ErrorCode.FORBIDDEN);
@@ -156,7 +154,7 @@ public class JavaUsers implements Users {
   public Result<List<User>> searchUsers(String name, String pwd, String query) {
     Log.info("searchUsers : name = " + name + "; pwd = " + pwd + "; query = " + query);
 
-    if (name == null || pwd == null) {
+    if (name == null || pwd == null || query == null) {
       Log.info("Dados em falta.");
       return Result.error(ErrorCode.BAD_REQUEST);
     }
@@ -185,10 +183,13 @@ public class JavaUsers implements Users {
     }
 
     List<User> usersList = new ArrayList<>();
+    String queryLower = query.toLowerCase();
 
     for (User u : allUsers) {
-      if (u.getName().toLowerCase().contains(query.toLowerCase())) {
-        User result = new User(u.getName(), "", u.getDisplayName(), u.getDomain());
+      if (u.getName().toLowerCase().contains(queryLower)) {
+        String displayName = u.getDisplayName() != null ? u.getDisplayName() : "";
+        String domain = u.getDomain() != null ? u.getDomain() : "";
+        User result = new User(u.getName(), "", displayName, domain);
         usersList.add(result);
       }
     }
@@ -213,7 +214,10 @@ public class JavaUsers implements Users {
       return Result.error(ErrorCode.INTERNAL_ERROR);
     }
 
-    if (user == null || !user.getPwd().equals(pwd)) {
+    if (user == null) {
+      return Result.error(ErrorCode.NOT_FOUND);
+    }
+    if (!user.getPwd().equals(pwd)) {
 
       return Result.error(ErrorCode.FORBIDDEN);
     }

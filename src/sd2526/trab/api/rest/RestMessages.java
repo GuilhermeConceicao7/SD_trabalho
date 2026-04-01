@@ -23,6 +23,7 @@ public interface RestMessages {
 	final String PWD = "pwd";
 	final String MID = "mid";
 	final String MBOX = "/mbox";
+	final String FORWARD = "/forward";
 
 	@POST
 	@Path("/")
@@ -48,4 +49,9 @@ public interface RestMessages {
 	@DELETE
 	@Path("/{" + NAME + "}/{" + MID + "}")
 	void deleteMessage(@PathParam(NAME) String name, @PathParam(MID) String mid, @QueryParam(PWD) String pwd);
+
+	@POST
+	@Path(FORWARD + "/{mid}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	void forwardMessage(@PathParam(MID) String mid, Message msg);
 }

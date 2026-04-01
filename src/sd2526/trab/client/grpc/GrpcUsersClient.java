@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 import sd2526.trab.api.grpc.GrpcUsersGrpc;
 import sd2526.trab.api.java.Users;
-import sd2526.trab.server.grpc.util.DataModelAdaptor;
+
 import sd2526.trab.api.User;
 import sd2526.trab.api.java.Result;
 import sd2526.trab.api.java.Result.ErrorCode;

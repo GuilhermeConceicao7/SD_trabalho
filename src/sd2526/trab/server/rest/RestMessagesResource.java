@@ -60,4 +60,10 @@ public class RestMessagesResource extends RestResource implements RestMessages {
         super.unwrapResultOrThrow(impl.deleteMessage(name, mid, pwd));
     }
 
+    @Override
+    public void forwardMessage(String mid, Message msg) {
+
+        super.unwrapResultOrThrow(impl.forwardMessage(mid, msg));
+    }
+
 }

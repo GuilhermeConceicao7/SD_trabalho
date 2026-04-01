@@ -51,6 +51,10 @@ public class RestMessagesClient extends RestClient implements Messages {
     return super.reTry(() -> doSearchInbox(name, pwd, query));
   }
 
+  public Result<Void> forwardMessage(String mid, Message msg) {
+    return super.reTry(() -> doForwardMessage(mid, msg));
+  }
+
   public Result<String> doPostMessage(String pwd, Message msg) {
     Response r = target.queryParam(RestUsers.PWD, pwd).request()
         .accept(MediaType.APPLICATION_JSON)
@@ -105,6 +109,18 @@ public class RestMessagesClient extends RestClient implements Messages {
 
     return super.processResponse(r, new GenericType<List<String>>() {
     });
+  }
+
+  private Result<Void> doForwardMessage(String mid, Message msg) {
+
+    Response r = target
+        .path(RestMessages.FORWARD) // endpoint tipo: /messages/forward
+        .path(mid)
+        .request()
+        .accept(MediaType.APPLICATION_JSON)
+        .post(Entity.entity(msg, MediaType.APPLICATION_JSON));
+
+    return super.processResponse(r, Void.class);
   }
 
 }

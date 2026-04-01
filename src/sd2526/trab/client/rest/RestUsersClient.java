@@ -105,7 +105,7 @@ public class RestUsersClient extends RestClient implements Users {
 
   public Result<User> doAuthUser(String name, String pwd) {
 
-    Response r = target.path(name)
+    Response r = target.path(name).path("auth")
         .queryParam(RestUsers.PWD, pwd).request()
         .accept(MediaType.APPLICATION_JSON)
         .get();

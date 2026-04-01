@@ -17,6 +17,11 @@ public class PostMessageClient {
 
   public static void main(String[] args) throws IOException {
 
+    if (args.length < 6) {
+      System.err.println("Usa os parametros");
+      return;
+    }
+
     String serverUrl = args[0];
     String pwd = args[1];
     String sender = args[2];

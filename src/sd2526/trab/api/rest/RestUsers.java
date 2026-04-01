@@ -21,31 +21,37 @@ public interface RestUsers {
 	final String QUERY = "query";
 	final String NAME = "name";
 	final String PWD = "pwd";
-	
+	final String AUTH = "auth";
+
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	String postUser(User user);
-	
+
 	@GET
-	@Path("/{" + NAME +"}")
+	@Path("/{" + NAME + "}")
 	@Produces(MediaType.APPLICATION_JSON)
 	User getUser(@PathParam(NAME) String name, @QueryParam(PWD) String pwd);
-	
+
 	@PUT
-	@Path("/{" + NAME +"}")
+	@Path("/{" + NAME + "}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	User updateUser(@PathParam(NAME) String name, @QueryParam(PWD) String pwd, User info);
-	
+
 	@DELETE
-	@Path("/{" + NAME +"}")
+	@Path("/{" + NAME + "}")
 	@Produces(MediaType.APPLICATION_JSON)
 	User deleteUser(@PathParam(NAME) String name, @QueryParam(PWD) String pwd);
-	
+
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
-	List<User> searchUsers(@QueryParam(NAME) String name, @QueryParam(PWD) String pwd, @QueryParam(QUERY) String pattern);	
+	List<User> searchUsers(@QueryParam(NAME) String name, @QueryParam(PWD) String pwd, @QueryParam(QUERY) String pattern);
+
+	@GET
+	@Path("/{" + NAME + "}/" + AUTH)
+	@Produces(MediaType.APPLICATION_JSON)
+	User authenticateUser(@PathParam(NAME) String name, @QueryParam(PWD) String pwd);
 }

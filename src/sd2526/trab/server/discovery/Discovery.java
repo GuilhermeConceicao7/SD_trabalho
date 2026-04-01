@@ -85,9 +85,9 @@ public class Discovery {
           String dom = sdParts[1];
 
           ServiceInfo info = new ServiceInfo(svc, dom, URI.create(uriStr));
-
-          serviceMap.computeIfAbsent(svc, k -> new CopyOnWriteArrayList<>());
-          List<ServiceInfo> list = serviceMap.get(svc);
+          String key = svc + "@" + dom;
+          serviceMap.computeIfAbsent(key, k -> new CopyOnWriteArrayList<>());
+          List<ServiceInfo> list = serviceMap.get(key);
 
           boolean exists = false;
           for (ServiceInfo si : list) {

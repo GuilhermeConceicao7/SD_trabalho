@@ -55,4 +55,11 @@ public class RestUsersResource extends RestResource implements RestUsers {
 
     return super.unwrapResultOrThrow(impl.searchUsers(name, pwd, query));
   }
+
+  @Override
+  public User authenticateUser(String name, String pwd) {
+    Log.info("authenticateUser : name = " + name + "; pwd = " + pwd);
+
+    return super.unwrapResultOrThrow(impl.authenticateUser(name, pwd));
+  }
 }
