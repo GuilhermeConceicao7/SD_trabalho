@@ -24,6 +24,7 @@ public interface RestMessages {
 	final String MID = "mid";
 	final String MBOX = "/mbox";
 	final String FORWARD = "/forward";
+	final String INTERNAL = "/internal";
 
 	@POST
 	@Path("/")
@@ -54,4 +55,8 @@ public interface RestMessages {
 	@Path(FORWARD + "/{mid}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	void forwardMessage(@PathParam(MID) String mid, Message msg);
+
+	@DELETE
+	@Path(INTERNAL + "/{mid}")
+	void deleteMessageInternal(@PathParam("mid") String mid);
 }

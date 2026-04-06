@@ -2,7 +2,8 @@ syntax = "proto3";
 
 package sd2526.trab.api.grpc;
 
-option java_package = "sd2526.trab.api.grpc";
+option java_package = "sd2526.trab.server.grpc.generated_java";
+option java_outer_classname = "UsersProtoBuf";
 
 service GrpcUsers {
 	rpc PostUser(GrpcUser) returns (PostUserResult);

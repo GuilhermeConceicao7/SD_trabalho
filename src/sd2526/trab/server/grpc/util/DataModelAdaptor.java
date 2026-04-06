@@ -1,57 +1,73 @@
-package sd2526.trab.server.util;
+package sd2526.trab.server.grpc.util;
+
+import sd2526.trab.api.User;
 
 import java.util.HashSet;
 
 import sd2526.trab.api.Message;
-import sd2526.trab.api.User;
-import sd2526.trab.api.grpc.Messages.GrpcMessage;
-import sd2526.trab.api.grpc.Users.GrpcUser;
+import sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GrpcUser;
+import sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GrpcUser.Builder;
+import sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessage;
 
 public class DataModelAdaptor {
 
-    public static GrpcMessage toGrpc(Message msg) {
-        var builder = GrpcMessage.newBuilder()
-                .setSender(msg.getSender() != null ? msg.getSender() : "")
-                .setCreationTime(msg.getCreationTime())
-                .setSubject(msg.getSubject() != null ? msg.getSubject() : "")
-                .setContents(msg.getContents() != null ? msg.getContents() : "");
-
-        if (msg.getId() != null)
-            builder.setId(msg.getId());
-
-        if (msg.getDestination() != null)
-            builder.addAllDestination(msg.getDestination());
-
-        return builder.build();
+    public static User GrpcUser_to_User(GrpcUser from) {
+        return new User(
+                from.getName(),
+                from.hasPwd() ? from.getPwd() : null,
+                from.hasDisplayName() ? from.getDisplayName() : null,
+                from.hasDomain() ? from.getDomain() : null);
     }
 
-    public static Message fromGrpc(GrpcMessage grpc) {
-        Message msg = new Message();
-        msg.setId(grpc.getId());
-        msg.setSender(grpc.getSender());
-        msg.setCreationTime(grpc.getCreationTime());
-        msg.setSubject(grpc.getSubject());
-        msg.setContents(grpc.getContents());
-        msg.setDestination(new HashSet<>(grpc.getDestinationList()));
+    public static GrpcUser User_to_GrpcUser(User from) {
+        Builder b = GrpcUser.newBuilder();
+
+        if (from.getName() != null)
+            b.setName(from.getName());
+
+        if (from.getPwd() != null)
+            b.setPwd(from.getPwd());
+
+        if (from.getDisplayName() != null)
+            b.setDisplayName(from.getDisplayName());
+
+        if (from.getDomain() != null)
+            b.setDomain(from.getDomain());
+
+        return b.build();
+    }
+
+    public static Message GrpcMessage_to_Message(GrpcMessage from) {
+        Message msg = new Message(
+                from.getId(),
+                from.getSender(),
+                new HashSet<>(from.getDestinationList()),
+                from.getSubject(),
+                from.getContents());
+        msg.setCreationTime(from.getCreationTime());
         return msg;
     }
 
+    public static GrpcMessage Message_to_GrpcMessage(Message from) {
+        GrpcMessage.Builder b = GrpcMessage.newBuilder();
 
-    public static GrpcUser toGrpc(User user) {
-        var builder = GrpcUser.newBuilder();
-        if (user.getName() != null)        builder.setName(user.getName());
-        if (user.getPwd() != null)         builder.setPwd(user.getPwd());
-        if (user.getDisplayName() != null) builder.setDisplayName(user.getDisplayName());
-        if (user.getDomain() != null)      builder.setDomain(user.getDomain());
-        return builder.build();
-    }
+        if (from.getId() != null)
+            b.setId(from.getId());
 
-    public static User fromGrpc(GrpcUser grpc) {
-        return new User(
-                grpc.getName(),
-                grpc.hasPwd()         ? grpc.getPwd()         : null,
-                grpc.hasDisplayName() ? grpc.getDisplayName() : null,
-                grpc.hasDomain()      ? grpc.getDomain()      : null
-        );
+        if (from.getSender() != null)
+            b.setSender(from.getSender());
+
+        if (from.getDestination() != null)
+            b.addAllDestination(from.getDestination());
+
+        if (from.getSubject() != null)
+            b.setSubject(from.getSubject());
+
+        if (from.getContents() != null)
+            b.setContents(from.getContents());
+
+        b.setCreationTime(from.getCreationTime());
+
+        return b.build();
     }
 }

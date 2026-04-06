@@ -75,4 +75,10 @@ public class RestGatewayMessagesResource implements RestMessages {
     if (!result.isOK())
       throw new WebApplicationException(result.error().ordinal());
   }
+
+  @Override
+  public void deleteMessageInternal(String mid) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'deleteMessageInternal'");
+  }
 }

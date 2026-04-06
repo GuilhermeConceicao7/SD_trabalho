@@ -18,7 +18,7 @@ public class RestUsersResource extends RestResource implements RestUsers {
   final Users impl;
 
   public RestUsersResource() {
-    impl = new JavaUsers();
+    impl = new JavaUsers(getDomainFromHostname());
   }
 
   @Override
@@ -61,5 +61,14 @@ public class RestUsersResource extends RestResource implements RestUsers {
     Log.info("authenticateUser : name = " + name + "; pwd = " + pwd);
 
     return super.unwrapResultOrThrow(impl.authenticateUser(name, pwd));
+  }
+
+  private static String getDomainFromHostname() {
+    try {
+      String hostname = java.net.InetAddress.getLocalHost().getHostName();
+      return hostname.split("\\.")[1];
+    } catch (Exception e) {
+      return "local";
+    }
   }
 }

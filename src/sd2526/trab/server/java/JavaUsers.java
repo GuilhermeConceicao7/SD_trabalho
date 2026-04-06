@@ -15,9 +15,11 @@ public class JavaUsers implements Users {
 
   private static Logger Log = Logger.getLogger(JavaUsers.class.getName());
 
+  private final String localDomain;
   private Hibernate hibernate;
 
-  public JavaUsers() {
+  public JavaUsers(String domain) {
+    this.localDomain = domain;
     hibernate = Hibernate.getInstance();
   }
 
@@ -29,6 +31,11 @@ public class JavaUsers implements Users {
     if (user.getName() == null || user.getPwd() == null || user.getDisplayName() == null || user.getDomain() == null) {
       Log.info("User object invalid.");
       return Result.error(ErrorCode.BAD_REQUEST);
+    }
+
+    if (!user.getDomain().equals(localDomain)) {
+      Log.info("Domain mismatch: " + user.getDomain() + " vs " + localDomain);
+      return Result.error(ErrorCode.FORBIDDEN);
     }
 
     try {

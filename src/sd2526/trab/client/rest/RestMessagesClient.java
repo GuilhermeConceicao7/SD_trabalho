@@ -55,6 +55,11 @@ public class RestMessagesClient extends RestClient implements Messages {
     return super.reTry(() -> doForwardMessage(mid, msg));
   }
 
+  public Result<Void> deleteMessageInternal(String mid) {
+    return super.reTry(() -> doDeleteMessageInternal(mid));
+
+  }
+
   public Result<String> doPostMessage(String pwd, Message msg) {
     Response r = target.queryParam(RestUsers.PWD, pwd).request()
         .accept(MediaType.APPLICATION_JSON)
@@ -111,16 +116,26 @@ public class RestMessagesClient extends RestClient implements Messages {
     });
   }
 
-  private Result<Void> doForwardMessage(String mid, Message msg) {
+  public Result<Void> doForwardMessage(String mid, Message msg) {
 
     Response r = target
-        .path(RestMessages.FORWARD) // endpoint tipo: /messages/forward
+        .path(RestMessages.FORWARD)
         .path(mid)
         .request()
         .accept(MediaType.APPLICATION_JSON)
         .post(Entity.entity(msg, MediaType.APPLICATION_JSON));
 
     return super.processResponse(r, Void.class);
+  }
+
+  public Result<Void> doDeleteMessageInternal(String mid) {
+
+    Response r = target.path(RestMessages.INTERNAL).path(mid)
+        .request()
+        .delete();
+
+    return super.processResponse(r, Void.class);
+
   }
 
 }

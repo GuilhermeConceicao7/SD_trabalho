@@ -19,7 +19,7 @@ public class RestMessagesResource extends RestResource implements RestMessages {
     final Messages impl;
 
     public RestMessagesResource() {
-        impl = new JavaMessages();
+        impl = new JavaMessages(getDomainFromHostname());
     }
 
     @Override
@@ -64,6 +64,20 @@ public class RestMessagesResource extends RestResource implements RestMessages {
     public void forwardMessage(String mid, Message msg) {
 
         super.unwrapResultOrThrow(impl.forwardMessage(mid, msg));
+    }
+
+    @Override
+    public void deleteMessageInternal(String mid) {
+        super.unwrapResultOrThrow(impl.deleteMessageInternal(mid));
+    }
+
+    private static String getDomainFromHostname() {
+        try {
+            String hostname = java.net.InetAddress.getLocalHost().getHostName();
+            return hostname.split("\\.")[1];
+        } catch (Exception e) {
+            return "local";
+        }
     }
 
 }

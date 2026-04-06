@@ -1,7 +1,3 @@
-C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\api\grpc\GrpcMessagesGrpc.java
-C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\api\grpc\GrpcUsersGrpc.java
-C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\api\grpc\Messages.java
-C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\api\grpc\Users.java
 C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\api\java\Messages.java
 C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\api\java\Result.java
 C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\api\java\Users.java
@@ -25,7 +21,15 @@ C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\client\rest\RestUsersCl
 C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\client\SearchUsersClient.java
 C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\client\UpdateUserClient.java
 C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\server\discovery\Discovery.java
+C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\server\grpc\generated_java\GrpcMessagesGrpc.java
+C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\server\grpc\generated_java\GrpcUsersGrpc.java
+C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\server\grpc\generated_java\MessagesProtoBuf.java
+C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\server\grpc\generated_java\UsersProtoBuf.java
 C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\server\grpc\GrpcController.java
+C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\server\grpc\GrpcMessagesController.java
+C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\server\grpc\GrpcMessagesServer.java
+C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\server\grpc\GrpcUsersController.java
+C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\server\grpc\GrpcUsersServer.java
 C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\server\grpc\util\DataModelAdaptor.java
 C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\server\java\JavaMessages.java
 C:\Users\guilh\Universidade\SD\trab1-api\src\sd2526\trab\server\java\JavaUsers.java

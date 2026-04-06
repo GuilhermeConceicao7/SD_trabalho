@@ -4,7 +4,8 @@ package sd2526.trab.api.grpc;
 
 import "google/protobuf/empty.proto";
 
-option java_package = "sd2526.trab.api.grpc";
+option java_package = "sd2526.trab.server.grpc.generated_java";
+option java_outer_classname = "MessagesProtoBuf";
 
 service GrpcMessages {
 	rpc PostMessage(PostMessageArgs) returns (PostMessageResult);

@@ -1,20 +1,20 @@
 package sd2526.trab.server.java;
 
 import java.net.InetAddress;
-import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Logger;
-
-import org.hsqldb.persist.Log;
 
 import sd2526.trab.api.User;
 
 import sd2526.trab.api.Message;
-import sd2526.trab.api.ServiceInfo;
+
 import sd2526.trab.api.java.Messages;
 import sd2526.trab.api.java.Result;
 import sd2526.trab.api.java.Result.ErrorCode;
@@ -28,6 +28,12 @@ public class JavaMessages implements Messages {
 
   private static Logger Log = Logger.getLogger(JavaUsers.class.getName());
 
+  private static final long DELETE_WINDOW_MS = 30_000;
+
+  private final String localDomain;
+
+  private final Map<String, BlockingQueue<Runnable>> domainQueues = new ConcurrentHashMap<>();
+
   // Guarda todas as mensagens: msgId -> Message
   private final Map<String, Message> allMessages = new ConcurrentHashMap<>();
 
@@ -36,8 +42,18 @@ public class JavaMessages implements Messages {
 
   private Hibernate hibernate;
 
-  public JavaMessages() {
+  public JavaMessages(String domain) {
+    this.localDomain = domain;
     hibernate = Hibernate.getInstance();
+
+    try {
+      List<Message> persisted = hibernate.jpql("FROM Message", Message.class);
+      for (Message m : persisted) {
+        allMessages.put(m.getId(), m);
+      }
+    } catch (Exception e) {
+      Log.warning("Erro ao recarregar mensagens: " + e.getMessage());
+    }
   }
 
   @Override
@@ -75,15 +91,16 @@ public class JavaMessages implements Messages {
     allMessages.put(msgId, msg);
     hibernate.persist(msg);
 
+    Map<String, List<String>> remoteByDomain = new HashMap<>();
+
     for (String destination : msg.getDestination()) {
       String destDomain = extractDomain(destination);
       String destUser = extractUser(destination);
 
       if (destDomain.equals(getLocalDomain())) {
         try {
-
           Users usersClient = UsersClientFactory.get(getLocalDomain());
-          Result<User> destCheck = usersClient.authenticateUser(destUser, "___invalid___");
+          Result<User> destCheck = usersClient.authenticateUser(destUser, "");
 
           if (!destCheck.isOK() && destCheck.error() == ErrorCode.NOT_FOUND) {
             // user não existe — notifica sender
@@ -95,31 +112,60 @@ public class JavaMessages implements Messages {
             allMessages.put(errorMid, errorMsg);
             inboxes.computeIfAbsent(user.getName(), k -> ConcurrentHashMap.newKeySet()).add(errorMid);
           } else {
-            // FORBIDDEN = user existe mas pwd errada → entrega normal
             storeMessageForUser(destUser, msgId);
           }
         } catch (Exception e) {
           Log.warning("Excepção ao verificar destinatário " + destUser + ": " + e.getMessage());
-          // fallback: entrega mesmo assim
           storeMessageForUser(destUser, msgId);
         }
       } else {
-        // entrega remota ASSÍNCRONA
-        final String finalMsgId = msgId;
-        final Message finalMsg = msg;
-        final String finalDestDomain = destDomain;
-        new Thread(() -> {
-          try {
-            Messages remoteClient = MessagesClientFactory.get(finalDestDomain);
-            Result<Void> result = remoteClient.forwardMessage(finalMsgId, finalMsg);
-            if (!result.isOK()) {
-              Log.warning("Falha ao reencaminhar para " + finalDestDomain + ": " + result.error());
-            }
-          } catch (Exception e) {
-            Log.warning("Erro ao contactar domínio remoto " + finalDestDomain + ": " + e.getMessage());
-          }
-        }).start();
+        remoteByDomain.computeIfAbsent(destDomain, k -> new java.util.ArrayList<>()).add(destination);
       }
+    }
+
+    for (Map.Entry<String, List<String>> entry : remoteByDomain.entrySet()) {
+      String destDomain = entry.getKey();
+      List<String> domainDests = entry.getValue();
+
+      dispatchToDomain(destDomain, () -> {
+
+        try {
+          Users remoteUsers = UsersClientFactory.get(destDomain);
+          boolean anyValid = false;
+
+          for (String dest : domainDests) {
+            String destUser = extractUser(dest);
+            Result<User> destCheck = remoteUsers.authenticateUser(destUser, "");
+
+            if (destCheck.error() == ErrorCode.NOT_FOUND) {
+              // Utilizador não existe — notifica o sender localmente
+              String errorMid = msgId + "." + dest;
+              String errorSubject = "FAILED TO SEND " + msgId + " TO " + dest + ": UNKNOWN USER";
+              Message errorMsg = new Message(errorMid, msg.getSender(),
+                  user.getName() + "@" + getLocalDomain(), errorSubject, msg.getContents());
+              errorMsg.setCreationTime(msg.getCreationTime());
+              allMessages.put(errorMid, errorMsg);
+              try {
+                hibernate.persist(errorMsg);
+              } catch (Exception ex) {
+                /* ignora */ }
+              storeMessageForUser(user.getName(), errorMid);
+            } else {
+              anyValid = true;
+            }
+          }
+
+          if (anyValid) {
+            Messages remoteClient = MessagesClientFactory.get(destDomain);
+            Result<Void> result = remoteClient.forwardMessage(msgId, msg);
+            if (!result.isOK()) {
+              Log.warning("Falha ao reencaminhar para " + destDomain + ": " + result.error());
+            }
+          }
+        } catch (Exception e) {
+          Log.warning("Erro ao contactar domínio remoto " + destDomain + ": " + e.getMessage());
+        }
+      });
     }
 
     return Result.ok(msg.getId());
@@ -218,13 +264,35 @@ public class JavaMessages implements Messages {
       return Result.error(ErrorCode.NOT_FOUND);
     }
 
+    if (System.currentTimeMillis() - msg.getCreationTime() > DELETE_WINDOW_MS) {
+      return Result.error(ErrorCode.FORBIDDEN);
+    }
+
     String senderEmail = extractEmailFromSender(msg.getSender());
     String senderName = extractUser(senderEmail);
     if (!senderName.equals(name)) {
       return Result.error(ErrorCode.FORBIDDEN);
     }
 
-    // remove de todas as inboxes
+    for (String destination : msg.getDestination()) {
+      String destDomain = extractDomain(destination);
+
+      if (!destDomain.equals(getLocalDomain())) {
+        dispatchToDomain(destDomain, () -> {
+          try {
+            Messages remoteClient = MessagesClientFactory.get(destDomain);
+            Result<Void> r = remoteClient.deleteMessageInternal(mid);
+            if (!r.isOK()) {
+              throw new RuntimeException("deleteInternal failed: " + r.error());
+            }
+          } catch (RuntimeException e) {
+            throw e;
+          } catch (Exception e) {
+            throw new RuntimeException(e);
+          }
+        });
+      }
+    }
     allMessages.remove(mid);
     hibernate.delete(msg);
     inboxes.values().forEach(inbox -> inbox.remove(mid));
@@ -234,14 +302,21 @@ public class JavaMessages implements Messages {
 
   @Override
   public Result<Void> forwardMessage(String mid, Message msg) {
-    // evita duplicados
-    if (allMessages.containsKey(mid)) {
+    msg.setId(mid);
+
+    // Se já existe, retorna imediatamente (atómico, sem race condition)
+    if (allMessages.putIfAbsent(mid, msg) != null) {
       return Result.ok();
     }
 
     msg.setId(mid);
     allMessages.put(mid, msg);
-    hibernate.persist(msg);
+    try {
+      hibernate.persist(msg);
+    } catch (Exception e) {
+      Log.warning("forwardMessage: persist failed for " + mid + ": " + e.getMessage());
+
+    }
 
     // entrega local se for para o mesmo domínio
     for (String destination : msg.getDestination()) {
@@ -251,13 +326,27 @@ public class JavaMessages implements Messages {
       if (destDomain.equals(getLocalDomain())) {
         // verifica se o destinatário existe no domínio remoto
         Users usersClient = UsersClientFactory.get(getLocalDomain());
-        Result<User> destCheck = usersClient.getUser(destUser, "___invalid___");
-        if (destCheck.error() != ErrorCode.NOT_FOUND) {
+        Result<User> destCheck = usersClient.authenticateUser(destUser, "");
+        if (destCheck.isOK() || destCheck.error() != ErrorCode.NOT_FOUND) {
           storeMessageForUser(destUser, mid);
         }
         // se não existe, ignora (o sender já foi notificado pelo seu servidor)
       }
     }
+
+    return Result.ok();
+  }
+
+  @Override
+  public Result<Void> deleteMessageInternal(String mid) {
+
+    Message msg = allMessages.get(mid);
+    if (msg == null)
+      return Result.ok(); // idempotente
+
+    allMessages.remove(mid);
+    hibernate.delete(msg);
+    inboxes.values().forEach(inbox -> inbox.remove(mid));
 
     return Result.ok();
   }
@@ -295,6 +384,40 @@ public class JavaMessages implements Messages {
       return sender.substring(sender.indexOf('<') + 1, sender.indexOf('>'));
     }
     return sender;
+  }
+
+  // IA metodo para o teste 10d) ter o envio de msg assicrono
+  private void dispatchToDomain(String destDomain, Runnable task) {
+    domainQueues.computeIfAbsent(destDomain, d -> {
+      BlockingQueue<Runnable> q = new LinkedBlockingQueue<>();
+      Thread worker = new Thread(() -> {
+        while (true) {
+          try {
+            Runnable r = q.take();
+            boolean done = false;
+            while (!done) {
+              try {
+                r.run();
+                done = true;
+              } catch (Exception e) {
+                Log.warning("Retry para domínio " + d + ": " + e.getMessage());
+                try {
+                  Thread.sleep(1000);
+                } catch (InterruptedException ie) {
+                  Thread.currentThread().interrupt();
+                }
+              }
+            }
+          } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            break;
+          }
+        }
+      });
+      worker.setDaemon(true);
+      worker.start();
+      return q;
+    }).add(task);
   }
 
 }

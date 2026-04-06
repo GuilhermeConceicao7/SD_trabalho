@@ -109,4 +109,6 @@ public interface Messages {
 
 	Result<Void> forwardMessage(String msgId, Message msg);
 
+	Result<Void> deleteMessageInternal(String finalMid);
+
 }

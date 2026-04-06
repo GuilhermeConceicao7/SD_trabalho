@@ -28,8 +28,8 @@ public abstract class AbstractRestServer {
 		this.port = port;
 		this.service = service;
 
-		String hostname = InetAddress.getLocalHost().getHostName();
-		this.serverURI = String.format(SERVER_BASE_URI, hostname, port);
+		String ip = InetAddress.getLocalHost().getHostAddress();
+		this.serverURI = String.format(SERVER_BASE_URI, ip, port);
 	}
 
 	protected void start() {
