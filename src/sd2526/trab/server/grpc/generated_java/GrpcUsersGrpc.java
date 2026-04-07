@@ -167,6 +167,37 @@ public final class GrpcUsersGrpc {
     return getSearchUsersMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserArgs,
+      sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserResult> getAuthenticateUserMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "AuthenticateUser",
+      requestType = sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserArgs.class,
+      responseType = sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserResult.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserArgs,
+      sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserResult> getAuthenticateUserMethod() {
+    io.grpc.MethodDescriptor<sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserArgs, sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserResult> getAuthenticateUserMethod;
+    if ((getAuthenticateUserMethod = GrpcUsersGrpc.getAuthenticateUserMethod) == null) {
+      synchronized (GrpcUsersGrpc.class) {
+        if ((getAuthenticateUserMethod = GrpcUsersGrpc.getAuthenticateUserMethod) == null) {
+          GrpcUsersGrpc.getAuthenticateUserMethod = getAuthenticateUserMethod =
+              io.grpc.MethodDescriptor.<sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserArgs, sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserResult>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "AuthenticateUser"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserArgs.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserResult.getDefaultInstance()))
+              .setSchemaDescriptor(new GrpcUsersMethodDescriptorSupplier("AuthenticateUser"))
+              .build();
+        }
+      }
+    }
+    return getAuthenticateUserMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -264,6 +295,13 @@ public final class GrpcUsersGrpc {
         io.grpc.stub.StreamObserver<sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GrpcUser> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSearchUsersMethod(), responseObserver);
     }
+
+    /**
+     */
+    default void authenticateUser(sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserArgs request,
+        io.grpc.stub.StreamObserver<sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserResult> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getAuthenticateUserMethod(), responseObserver);
+    }
   }
 
   /**
@@ -332,6 +370,14 @@ public final class GrpcUsersGrpc {
       io.grpc.stub.ClientCalls.asyncServerStreamingCall(
           getChannel().newCall(getSearchUsersMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void authenticateUser(sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserArgs request,
+        io.grpc.stub.StreamObserver<sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserResult> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getAuthenticateUserMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -386,6 +432,13 @@ public final class GrpcUsersGrpc {
       return io.grpc.stub.ClientCalls.blockingV2ServerStreamingCall(
           getChannel(), getSearchUsersMethod(), getCallOptions(), request);
     }
+
+    /**
+     */
+    public sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserResult authenticateUser(sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserArgs request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getAuthenticateUserMethod(), getCallOptions(), request);
+    }
   }
 
   /**
@@ -439,6 +492,13 @@ public final class GrpcUsersGrpc {
       return io.grpc.stub.ClientCalls.blockingServerStreamingCall(
           getChannel(), getSearchUsersMethod(), getCallOptions(), request);
     }
+
+    /**
+     */
+    public sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserResult authenticateUser(sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserArgs request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getAuthenticateUserMethod(), getCallOptions(), request);
+    }
   }
 
   /**
@@ -488,6 +548,14 @@ public final class GrpcUsersGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getDeleteUserMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserResult> authenticateUser(
+        sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserArgs request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getAuthenticateUserMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_POST_USER = 0;
@@ -495,6 +563,7 @@ public final class GrpcUsersGrpc {
   private static final int METHODID_UPDATE_USER = 2;
   private static final int METHODID_DELETE_USER = 3;
   private static final int METHODID_SEARCH_USERS = 4;
+  private static final int METHODID_AUTHENTICATE_USER = 5;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -532,6 +601,10 @@ public final class GrpcUsersGrpc {
         case METHODID_SEARCH_USERS:
           serviceImpl.searchUsers((sd2526.trab.server.grpc.generated_java.UsersProtoBuf.SearchUsersArgs) request,
               (io.grpc.stub.StreamObserver<sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GrpcUser>) responseObserver);
+          break;
+        case METHODID_AUTHENTICATE_USER:
+          serviceImpl.authenticateUser((sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserArgs) request,
+              (io.grpc.stub.StreamObserver<sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserResult>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -586,6 +659,13 @@ public final class GrpcUsersGrpc {
               sd2526.trab.server.grpc.generated_java.UsersProtoBuf.SearchUsersArgs,
               sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GrpcUser>(
                 service, METHODID_SEARCH_USERS)))
+        .addMethod(
+          getAuthenticateUserMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserArgs,
+              sd2526.trab.server.grpc.generated_java.UsersProtoBuf.GetUserResult>(
+                service, METHODID_AUTHENTICATE_USER)))
         .build();
   }
 
@@ -639,6 +719,7 @@ public final class GrpcUsersGrpc {
               .addMethod(getUpdateUserMethod())
               .addMethod(getDeleteUserMethod())
               .addMethod(getSearchUsersMethod())
+              .addMethod(getAuthenticateUserMethod())
               .build();
         }
       }

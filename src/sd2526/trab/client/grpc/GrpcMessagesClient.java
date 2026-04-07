@@ -12,6 +12,8 @@ import sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GetInboxMessageAr
 import sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.PostMessageArgs;
 import sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.RemoveInboxMessageArgs;
 import sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.SearchInboxArgs;
+import sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs;
+import sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs;
 import sd2526.trab.api.java.Messages;
 import sd2526.trab.api.java.Result;
 import sd2526.trab.server.util.DataModelAdaptor;
@@ -86,27 +88,25 @@ public class GrpcMessagesClient extends GrpcClient implements Messages {
                 .build()).getMidsList());
     }
 
-    @Override
-    public Result<Void> forwardMessage(String msgId, Message msg) {
-        msg.setId(msgId);
-        return super.processResponse(() -> {
-            stub.postMessage(PostMessageArgs.newBuilder()
-                    .setPwd("")
-                    .setMessage(DataModelAdaptor.Message_to_GrpcMessage(msg))
-                    .build());
-            return null;
-        });
-    }
+   @Override
+public Result<Void> forwardMessage(String msgId, Message msg) {
+    msg.setId(msgId);
+    return super.processResponse(() -> {
+        stub.forwardMessage(ForwardMessageArgs.newBuilder()
+                .setMid(msgId)
+                .setMessage(DataModelAdaptor.Message_to_GrpcMessage(msg))
+                .build());
+        return null;
+    });
+}
 
     @Override
-    public Result<Void> deleteMessageInternal(String mid) {
-        return super.processResponse(() -> {
-            stub.deleteMessage(DeleteMessageArgs.newBuilder()
-                    .setName("")
-                    .setMid(mid)
-                    .setPwd("")
-                    .build());
-            return null;
-        });
-    }
+public Result<Void> deleteMessageInternal(String mid) {
+    return super.processResponse(() -> {
+        stub.deleteMessageInternal(DeleteMessageInternalArgs.newBuilder()
+                .setMid(mid)
+                .build());
+        return null;
+    });
+}
 }

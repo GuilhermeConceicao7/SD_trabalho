@@ -38,15 +38,16 @@ public class GrpcUsersClient extends GrpcClient implements Users {
                 .getUserAddress());
     }
 
-    @Override
-    public Result<User> getUser(String name, String pwd) {
+   @Override
+public Result<User> getUser(String name, String pwd) {
+    return super.processResponse(() -> {
         GetUserResult res = stub.getUser(GetUserArgs.newBuilder()
                 .setName(name)
                 .setPwd(pwd)
                 .build());
-
-        return super.processResponse(() -> DataModelAdaptor.GrpcUser_to_User(res.getUser()));
-    }
+        return DataModelAdaptor.GrpcUser_to_User(res.getUser());
+    });
+}
 
     @Override
     public Result<User> updateUser(String name, String pwd, User info) {
@@ -86,7 +87,13 @@ public class GrpcUsersClient extends GrpcClient implements Users {
     }
 
     @Override
-    public Result<User> authenticateUser(String name, String pwd) {
-        return getUser(name, pwd);
-    }
+public Result<User> authenticateUser(String name, String pwd) {
+    return super.processResponse(() -> {
+        GetUserResult res = stub.authenticateUser(GetUserArgs.newBuilder()
+                .setName(name)
+                .setPwd(pwd)
+                .build());
+        return DataModelAdaptor.GrpcUser_to_User(res.getUser());
+    });
+}
 }

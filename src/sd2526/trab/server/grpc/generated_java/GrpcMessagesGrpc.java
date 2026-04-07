@@ -198,6 +198,68 @@ public final class GrpcMessagesGrpc {
     return getSearchInboxMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs,
+      com.google.protobuf.Empty> getForwardMessageMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ForwardMessage",
+      requestType = sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs.class,
+      responseType = com.google.protobuf.Empty.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs,
+      com.google.protobuf.Empty> getForwardMessageMethod() {
+    io.grpc.MethodDescriptor<sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs, com.google.protobuf.Empty> getForwardMessageMethod;
+    if ((getForwardMessageMethod = GrpcMessagesGrpc.getForwardMessageMethod) == null) {
+      synchronized (GrpcMessagesGrpc.class) {
+        if ((getForwardMessageMethod = GrpcMessagesGrpc.getForwardMessageMethod) == null) {
+          GrpcMessagesGrpc.getForwardMessageMethod = getForwardMessageMethod =
+              io.grpc.MethodDescriptor.<sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs, com.google.protobuf.Empty>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ForwardMessage"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.google.protobuf.Empty.getDefaultInstance()))
+              .setSchemaDescriptor(new GrpcMessagesMethodDescriptorSupplier("ForwardMessage"))
+              .build();
+        }
+      }
+    }
+    return getForwardMessageMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs,
+      com.google.protobuf.Empty> getDeleteMessageInternalMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "DeleteMessageInternal",
+      requestType = sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs.class,
+      responseType = com.google.protobuf.Empty.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs,
+      com.google.protobuf.Empty> getDeleteMessageInternalMethod() {
+    io.grpc.MethodDescriptor<sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs, com.google.protobuf.Empty> getDeleteMessageInternalMethod;
+    if ((getDeleteMessageInternalMethod = GrpcMessagesGrpc.getDeleteMessageInternalMethod) == null) {
+      synchronized (GrpcMessagesGrpc.class) {
+        if ((getDeleteMessageInternalMethod = GrpcMessagesGrpc.getDeleteMessageInternalMethod) == null) {
+          GrpcMessagesGrpc.getDeleteMessageInternalMethod = getDeleteMessageInternalMethod =
+              io.grpc.MethodDescriptor.<sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs, com.google.protobuf.Empty>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DeleteMessageInternal"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.google.protobuf.Empty.getDefaultInstance()))
+              .setSchemaDescriptor(new GrpcMessagesMethodDescriptorSupplier("DeleteMessageInternal"))
+              .build();
+        }
+      }
+    }
+    return getDeleteMessageInternalMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -302,6 +364,20 @@ public final class GrpcMessagesGrpc {
         io.grpc.stub.StreamObserver<sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.SearchInboxResult> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSearchInboxMethod(), responseObserver);
     }
+
+    /**
+     */
+    default void forwardMessage(sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getForwardMessageMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void deleteMessageInternal(sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteMessageInternalMethod(), responseObserver);
+    }
   }
 
   /**
@@ -378,6 +454,22 @@ public final class GrpcMessagesGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getSearchInboxMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void forwardMessage(sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getForwardMessageMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void deleteMessageInternal(sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getDeleteMessageInternalMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -437,6 +529,20 @@ public final class GrpcMessagesGrpc {
       return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
           getChannel(), getSearchInboxMethod(), getCallOptions(), request);
     }
+
+    /**
+     */
+    public com.google.protobuf.Empty forwardMessage(sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getForwardMessageMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.google.protobuf.Empty deleteMessageInternal(sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getDeleteMessageInternalMethod(), getCallOptions(), request);
+    }
   }
 
   /**
@@ -495,6 +601,20 @@ public final class GrpcMessagesGrpc {
     public sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.SearchInboxResult searchInbox(sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.SearchInboxArgs request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getSearchInboxMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.google.protobuf.Empty forwardMessage(sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getForwardMessageMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.google.protobuf.Empty deleteMessageInternal(sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getDeleteMessageInternalMethod(), getCallOptions(), request);
     }
   }
 
@@ -561,6 +681,22 @@ public final class GrpcMessagesGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getSearchInboxMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> forwardMessage(
+        sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getForwardMessageMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> deleteMessageInternal(
+        sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getDeleteMessageInternalMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_POST_MESSAGE = 0;
@@ -569,6 +705,8 @@ public final class GrpcMessagesGrpc {
   private static final int METHODID_REMOVE_INBOX_MESSAGE = 3;
   private static final int METHODID_DELETE_MESSAGE = 4;
   private static final int METHODID_SEARCH_INBOX = 5;
+  private static final int METHODID_FORWARD_MESSAGE = 6;
+  private static final int METHODID_DELETE_MESSAGE_INTERNAL = 7;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -610,6 +748,14 @@ public final class GrpcMessagesGrpc {
         case METHODID_SEARCH_INBOX:
           serviceImpl.searchInbox((sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.SearchInboxArgs) request,
               (io.grpc.stub.StreamObserver<sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.SearchInboxResult>) responseObserver);
+          break;
+        case METHODID_FORWARD_MESSAGE:
+          serviceImpl.forwardMessage((sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs) request,
+              (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
+          break;
+        case METHODID_DELETE_MESSAGE_INTERNAL:
+          serviceImpl.deleteMessageInternal((sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs) request,
+              (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -671,6 +817,20 @@ public final class GrpcMessagesGrpc {
               sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.SearchInboxArgs,
               sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.SearchInboxResult>(
                 service, METHODID_SEARCH_INBOX)))
+        .addMethod(
+          getForwardMessageMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs,
+              com.google.protobuf.Empty>(
+                service, METHODID_FORWARD_MESSAGE)))
+        .addMethod(
+          getDeleteMessageInternalMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs,
+              com.google.protobuf.Empty>(
+                service, METHODID_DELETE_MESSAGE_INTERNAL)))
         .build();
   }
 
@@ -725,6 +885,8 @@ public final class GrpcMessagesGrpc {
               .addMethod(getRemoveInboxMessageMethod())
               .addMethod(getDeleteMessageMethod())
               .addMethod(getSearchInboxMethod())
+              .addMethod(getForwardMessageMethod())
+              .addMethod(getDeleteMessageInternalMethod())
               .build();
         }
       }

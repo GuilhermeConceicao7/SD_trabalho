@@ -72,4 +72,11 @@ public class GrpcUsersController extends GrpcController implements GrpcUsersGrpc
             responseObserver.onError(GrpcController.errorCodeToStatus(result.error()));
         }
     }
+
+    @Override
+public void authenticateUser(GetUserArgs request, StreamObserver<GetUserResult> responseObserver) {
+    super.toGrpcResult(responseObserver, 
+        impl.authenticateUser(request.getName(), request.getPwd()),
+        (user) -> GetUserResult.newBuilder().setUser(User_to_GrpcUser(user)).build());
+}
 }

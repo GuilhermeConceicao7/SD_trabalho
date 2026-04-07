@@ -80,9 +80,11 @@ public class JavaUsers implements Users {
       return Result.error(ErrorCode.INTERNAL_ERROR);
     }
 
-    if (user == null || !user.getPwd().equals(pwd)) {
-      Log.info("User does not exist or password is incorrect.");
-      return Result.error(ErrorCode.FORBIDDEN);
+    if (user == null) {
+    return Result.error(ErrorCode.FORBIDDEN); 
+    }
+    if (!user.getPwd().equals(pwd)) {
+    return Result.error(ErrorCode.FORBIDDEN);
     }
 
     return Result.ok(user);

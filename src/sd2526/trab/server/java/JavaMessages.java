@@ -102,7 +102,7 @@ public class JavaMessages implements Messages {
           Users usersClient = UsersClientFactory.get(getLocalDomain());
           Result<User> destCheck = usersClient.authenticateUser(destUser, "");
 
-          if (!destCheck.isOK() && destCheck.error() == ErrorCode.NOT_FOUND) {
+          if (!destCheck.isOK() && destCheck.error() != ErrorCode.FORBIDDEN) {
             // user não existe — notifica sender
             String errorMid = msgId + "." + destination;
             String errorSubject = "FAILED TO SEND " + msgId + " TO " + destination + ": UNKNOWN USER";
@@ -137,7 +137,7 @@ public class JavaMessages implements Messages {
             String destUser = extractUser(dest);
             Result<User> destCheck = remoteUsers.authenticateUser(destUser, "");
 
-            if (destCheck.error() == ErrorCode.NOT_FOUND) {
+            if (!destCheck.isOK() && destCheck.error() != ErrorCode.FORBIDDEN) {
               // Utilizador não existe — notifica o sender localmente
               String errorMid = msgId + "." + dest;
               String errorSubject = "FAILED TO SEND " + msgId + " TO " + dest + ": UNKNOWN USER";
@@ -324,14 +324,8 @@ public class JavaMessages implements Messages {
       String destDomain = extractDomain(destination);
 
       if (destDomain.equals(getLocalDomain())) {
-        // verifica se o destinatário existe no domínio remoto
-        Users usersClient = UsersClientFactory.get(getLocalDomain());
-        Result<User> destCheck = usersClient.authenticateUser(destUser, "");
-        if (destCheck.isOK() || destCheck.error() != ErrorCode.NOT_FOUND) {
-          storeMessageForUser(destUser, mid);
-        }
-        // se não existe, ignora (o sender já foi notificado pelo seu servidor)
-      }
+    storeMessageForUser(destUser, mid);
+}
     }
 
     return Result.ok();
@@ -395,11 +389,18 @@ public class JavaMessages implements Messages {
           try {
             Runnable r = q.take();
             boolean done = false;
+            long startTime = System.currentTimeMillis();
+            long timeoutMs = 90_000;
             while (!done) {
               try {
                 r.run();
                 done = true;
               } catch (Exception e) {
+                long elapsed = System.currentTimeMillis() - startTime;
+                if (elapsed >= timeoutMs) {
+                  Log.warning("Timeout para domínio " + d + " após " + elapsed + "ms");
+                  done = true; // desiste
+                } else {
                 Log.warning("Retry para domínio " + d + ": " + e.getMessage());
                 try {
                   Thread.sleep(1000);
@@ -407,6 +408,7 @@ public class JavaMessages implements Messages {
                   Thread.currentThread().interrupt();
                 }
               }
+            }
             }
           } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -419,5 +421,6 @@ public class JavaMessages implements Messages {
       return q;
     }).add(task);
   }
+
 
 }

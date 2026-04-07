@@ -11,6 +11,7 @@ service GrpcUsers {
 	rpc UpdateUser(UpdateUserArgs) returns (UpdateUserResult);
 	rpc DeleteUser(DeleteUserArgs) returns (DeleteUserResult);
 	rpc SearchUsers(SearchUsersArgs) returns (stream GrpcUser);
+	rpc AuthenticateUser(GetUserArgs) returns (GetUserResult);
 }
 
 message GrpcUser {

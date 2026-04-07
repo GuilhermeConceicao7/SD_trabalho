@@ -14,6 +14,8 @@ service GrpcMessages {
 	rpc RemoveInboxMessage(RemoveInboxMessageArgs) returns (google.protobuf.Empty);
 	rpc DeleteMessage(DeleteMessageArgs) returns (google.protobuf.Empty);
 	rpc SearchInbox(SearchInboxArgs) returns (SearchInboxResult);
+	rpc ForwardMessage(ForwardMessageArgs) returns (google.protobuf.Empty);
+	rpc DeleteMessageInternal(DeleteMessageInternalArgs) returns (google.protobuf.Empty);
 }
 
 message GrpcMessage {
@@ -70,4 +72,14 @@ message SearchInboxArgs {
 message SearchInboxResult {
 	repeated string mids = 1;
 }
+
+message ForwardMessageArgs {
+    string mid = 1;
+    GrpcMessage message = 2;
+}
+
+message DeleteMessageInternalArgs {
+    string mid = 1;
+}
+
 

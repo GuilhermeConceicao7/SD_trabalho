@@ -6869,7 +6869,7 @@ public final class UsersProtoBuf {
       "\013\n\003pwd\030\002 \001(\t\"@\n\020DeleteUserResult\022,\n\004user" +
       "\030\001 \001(\0132\036.sd2526.trab.api.grpc.GrpcUser\";" +
       "\n\017SearchUsersArgs\022\014\n\004name\030\001 \001(\t\022\013\n\003pwd\030\002" +
-      " \001(\t\022\r\n\005query\030\003 \001(\t2\300\003\n\tGrpcUsers\022P\n\010Pos" +
+      " \001(\t\022\r\n\005query\030\003 \001(\t2\234\004\n\tGrpcUsers\022P\n\010Pos" +
       "tUser\022\036.sd2526.trab.api.grpc.GrpcUser\032$." +
       "sd2526.trab.api.grpc.PostUserResult\022Q\n\007G" +
       "etUser\022!.sd2526.trab.api.grpc.GetUserArg" +
@@ -6880,9 +6880,11 @@ public final class UsersProtoBuf {
       "pi.grpc.DeleteUserArgs\032&.sd2526.trab.api" +
       ".grpc.DeleteUserResult\022V\n\013SearchUsers\022%." +
       "sd2526.trab.api.grpc.SearchUsersArgs\032\036.s" +
-      "d2526.trab.api.grpc.GrpcUser0\001B7\n&sd2526" +
-      ".trab.server.grpc.generated_javaB\rUsersP" +
-      "rotoBufb\006proto3"
+      "d2526.trab.api.grpc.GrpcUser0\001\022Z\n\020Authen" +
+      "ticateUser\022!.sd2526.trab.api.grpc.GetUse" +
+      "rArgs\032#.sd2526.trab.api.grpc.GetUserResu" +
+      "ltB7\n&sd2526.trab.server.grpc.generated_" +
+      "javaB\rUsersProtoBufb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -8148,6 +8148,1349 @@ public final class MessagesProtoBuf {
 
   }
 
+  public interface ForwardMessageArgsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sd2526.trab.api.grpc.ForwardMessageArgs)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string mid = 1;</code>
+     * @return The mid.
+     */
+    java.lang.String getMid();
+    /**
+     * <code>string mid = 1;</code>
+     * @return The bytes for mid.
+     */
+    com.google.protobuf.ByteString
+        getMidBytes();
+
+    /**
+     * <code>.sd2526.trab.api.grpc.GrpcMessage message = 2;</code>
+     * @return Whether the message field is set.
+     */
+    boolean hasMessage();
+    /**
+     * <code>.sd2526.trab.api.grpc.GrpcMessage message = 2;</code>
+     * @return The message.
+     */
+    sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessage getMessage();
+    /**
+     * <code>.sd2526.trab.api.grpc.GrpcMessage message = 2;</code>
+     */
+    sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessageOrBuilder getMessageOrBuilder();
+  }
+  /**
+   * Protobuf type {@code sd2526.trab.api.grpc.ForwardMessageArgs}
+   */
+  public static final class ForwardMessageArgs extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sd2526.trab.api.grpc.ForwardMessageArgs)
+      ForwardMessageArgsOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ForwardMessageArgs.newBuilder() to construct.
+    private ForwardMessageArgs(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ForwardMessageArgs() {
+      mid_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ForwardMessageArgs();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ForwardMessageArgs(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              mid_ = s;
+              break;
+            }
+            case 18: {
+              sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessage.Builder subBuilder = null;
+              if (message_ != null) {
+                subBuilder = message_.toBuilder();
+              }
+              message_ = input.readMessage(sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessage.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(message_);
+                message_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (com.google.protobuf.UninitializedMessageException e) {
+        throw e.asInvalidProtocolBufferException().setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.internal_static_sd2526_trab_api_grpc_ForwardMessageArgs_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.internal_static_sd2526_trab_api_grpc_ForwardMessageArgs_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs.class, sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs.Builder.class);
+    }
+
+    public static final int MID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object mid_;
+    /**
+     * <code>string mid = 1;</code>
+     * @return The mid.
+     */
+    @java.lang.Override
+    public java.lang.String getMid() {
+      java.lang.Object ref = mid_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        mid_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string mid = 1;</code>
+     * @return The bytes for mid.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getMidBytes() {
+      java.lang.Object ref = mid_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        mid_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MESSAGE_FIELD_NUMBER = 2;
+    private sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessage message_;
+    /**
+     * <code>.sd2526.trab.api.grpc.GrpcMessage message = 2;</code>
+     * @return Whether the message field is set.
+     */
+    @java.lang.Override
+    public boolean hasMessage() {
+      return message_ != null;
+    }
+    /**
+     * <code>.sd2526.trab.api.grpc.GrpcMessage message = 2;</code>
+     * @return The message.
+     */
+    @java.lang.Override
+    public sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessage getMessage() {
+      return message_ == null ? sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessage.getDefaultInstance() : message_;
+    }
+    /**
+     * <code>.sd2526.trab.api.grpc.GrpcMessage message = 2;</code>
+     */
+    @java.lang.Override
+    public sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessageOrBuilder getMessageOrBuilder() {
+      return getMessage();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(mid_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, mid_);
+      }
+      if (message_ != null) {
+        output.writeMessage(2, getMessage());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(mid_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, mid_);
+      }
+      if (message_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getMessage());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs)) {
+        return super.equals(obj);
+      }
+      sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs other = (sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs) obj;
+
+      if (!getMid()
+          .equals(other.getMid())) return false;
+      if (hasMessage() != other.hasMessage()) return false;
+      if (hasMessage()) {
+        if (!getMessage()
+            .equals(other.getMessage())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + MID_FIELD_NUMBER;
+      hash = (53 * hash) + getMid().hashCode();
+      if (hasMessage()) {
+        hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
+        hash = (53 * hash) + getMessage().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sd2526.trab.api.grpc.ForwardMessageArgs}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sd2526.trab.api.grpc.ForwardMessageArgs)
+        sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.internal_static_sd2526_trab_api_grpc_ForwardMessageArgs_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.internal_static_sd2526_trab_api_grpc_ForwardMessageArgs_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs.class, sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs.Builder.class);
+      }
+
+      // Construct using sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        mid_ = "";
+
+        if (messageBuilder_ == null) {
+          message_ = null;
+        } else {
+          message_ = null;
+          messageBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.internal_static_sd2526_trab_api_grpc_ForwardMessageArgs_descriptor;
+      }
+
+      @java.lang.Override
+      public sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs getDefaultInstanceForType() {
+        return sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs build() {
+        sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs buildPartial() {
+        sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs result = new sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs(this);
+        result.mid_ = mid_;
+        if (messageBuilder_ == null) {
+          result.message_ = message_;
+        } else {
+          result.message_ = messageBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs) {
+          return mergeFrom((sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs other) {
+        if (other == sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs.getDefaultInstance()) return this;
+        if (!other.getMid().isEmpty()) {
+          mid_ = other.mid_;
+          onChanged();
+        }
+        if (other.hasMessage()) {
+          mergeMessage(other.getMessage());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object mid_ = "";
+      /**
+       * <code>string mid = 1;</code>
+       * @return The mid.
+       */
+      public java.lang.String getMid() {
+        java.lang.Object ref = mid_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          mid_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string mid = 1;</code>
+       * @return The bytes for mid.
+       */
+      public com.google.protobuf.ByteString
+          getMidBytes() {
+        java.lang.Object ref = mid_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          mid_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string mid = 1;</code>
+       * @param value The mid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMid(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        mid_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string mid = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMid() {
+        
+        mid_ = getDefaultInstance().getMid();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string mid = 1;</code>
+       * @param value The bytes for mid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMidBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        mid_ = value;
+        onChanged();
+        return this;
+      }
+
+      private sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessage message_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessage, sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessage.Builder, sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessageOrBuilder> messageBuilder_;
+      /**
+       * <code>.sd2526.trab.api.grpc.GrpcMessage message = 2;</code>
+       * @return Whether the message field is set.
+       */
+      public boolean hasMessage() {
+        return messageBuilder_ != null || message_ != null;
+      }
+      /**
+       * <code>.sd2526.trab.api.grpc.GrpcMessage message = 2;</code>
+       * @return The message.
+       */
+      public sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessage getMessage() {
+        if (messageBuilder_ == null) {
+          return message_ == null ? sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessage.getDefaultInstance() : message_;
+        } else {
+          return messageBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.sd2526.trab.api.grpc.GrpcMessage message = 2;</code>
+       */
+      public Builder setMessage(sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessage value) {
+        if (messageBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          message_ = value;
+          onChanged();
+        } else {
+          messageBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sd2526.trab.api.grpc.GrpcMessage message = 2;</code>
+       */
+      public Builder setMessage(
+          sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessage.Builder builderForValue) {
+        if (messageBuilder_ == null) {
+          message_ = builderForValue.build();
+          onChanged();
+        } else {
+          messageBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sd2526.trab.api.grpc.GrpcMessage message = 2;</code>
+       */
+      public Builder mergeMessage(sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessage value) {
+        if (messageBuilder_ == null) {
+          if (message_ != null) {
+            message_ =
+              sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessage.newBuilder(message_).mergeFrom(value).buildPartial();
+          } else {
+            message_ = value;
+          }
+          onChanged();
+        } else {
+          messageBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sd2526.trab.api.grpc.GrpcMessage message = 2;</code>
+       */
+      public Builder clearMessage() {
+        if (messageBuilder_ == null) {
+          message_ = null;
+          onChanged();
+        } else {
+          message_ = null;
+          messageBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.sd2526.trab.api.grpc.GrpcMessage message = 2;</code>
+       */
+      public sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessage.Builder getMessageBuilder() {
+        
+        onChanged();
+        return getMessageFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.sd2526.trab.api.grpc.GrpcMessage message = 2;</code>
+       */
+      public sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessageOrBuilder getMessageOrBuilder() {
+        if (messageBuilder_ != null) {
+          return messageBuilder_.getMessageOrBuilder();
+        } else {
+          return message_ == null ?
+              sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessage.getDefaultInstance() : message_;
+        }
+      }
+      /**
+       * <code>.sd2526.trab.api.grpc.GrpcMessage message = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessage, sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessage.Builder, sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessageOrBuilder> 
+          getMessageFieldBuilder() {
+        if (messageBuilder_ == null) {
+          messageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessage, sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessage.Builder, sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GrpcMessageOrBuilder>(
+                  getMessage(),
+                  getParentForChildren(),
+                  isClean());
+          message_ = null;
+        }
+        return messageBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sd2526.trab.api.grpc.ForwardMessageArgs)
+    }
+
+    // @@protoc_insertion_point(class_scope:sd2526.trab.api.grpc.ForwardMessageArgs)
+    private static final sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs();
+    }
+
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ForwardMessageArgs>
+        PARSER = new com.google.protobuf.AbstractParser<ForwardMessageArgs>() {
+      @java.lang.Override
+      public ForwardMessageArgs parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ForwardMessageArgs(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ForwardMessageArgs> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ForwardMessageArgs> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface DeleteMessageInternalArgsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:sd2526.trab.api.grpc.DeleteMessageInternalArgs)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string mid = 1;</code>
+     * @return The mid.
+     */
+    java.lang.String getMid();
+    /**
+     * <code>string mid = 1;</code>
+     * @return The bytes for mid.
+     */
+    com.google.protobuf.ByteString
+        getMidBytes();
+  }
+  /**
+   * Protobuf type {@code sd2526.trab.api.grpc.DeleteMessageInternalArgs}
+   */
+  public static final class DeleteMessageInternalArgs extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:sd2526.trab.api.grpc.DeleteMessageInternalArgs)
+      DeleteMessageInternalArgsOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use DeleteMessageInternalArgs.newBuilder() to construct.
+    private DeleteMessageInternalArgs(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private DeleteMessageInternalArgs() {
+      mid_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new DeleteMessageInternalArgs();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private DeleteMessageInternalArgs(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              mid_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (com.google.protobuf.UninitializedMessageException e) {
+        throw e.asInvalidProtocolBufferException().setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.internal_static_sd2526_trab_api_grpc_DeleteMessageInternalArgs_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.internal_static_sd2526_trab_api_grpc_DeleteMessageInternalArgs_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs.class, sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs.Builder.class);
+    }
+
+    public static final int MID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object mid_;
+    /**
+     * <code>string mid = 1;</code>
+     * @return The mid.
+     */
+    @java.lang.Override
+    public java.lang.String getMid() {
+      java.lang.Object ref = mid_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        mid_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string mid = 1;</code>
+     * @return The bytes for mid.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getMidBytes() {
+      java.lang.Object ref = mid_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        mid_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(mid_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, mid_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(mid_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, mid_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs)) {
+        return super.equals(obj);
+      }
+      sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs other = (sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs) obj;
+
+      if (!getMid()
+          .equals(other.getMid())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + MID_FIELD_NUMBER;
+      hash = (53 * hash) + getMid().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code sd2526.trab.api.grpc.DeleteMessageInternalArgs}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:sd2526.trab.api.grpc.DeleteMessageInternalArgs)
+        sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.internal_static_sd2526_trab_api_grpc_DeleteMessageInternalArgs_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.internal_static_sd2526_trab_api_grpc_DeleteMessageInternalArgs_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs.class, sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs.Builder.class);
+      }
+
+      // Construct using sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        mid_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.internal_static_sd2526_trab_api_grpc_DeleteMessageInternalArgs_descriptor;
+      }
+
+      @java.lang.Override
+      public sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs getDefaultInstanceForType() {
+        return sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs build() {
+        sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs buildPartial() {
+        sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs result = new sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs(this);
+        result.mid_ = mid_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs) {
+          return mergeFrom((sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs other) {
+        if (other == sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs.getDefaultInstance()) return this;
+        if (!other.getMid().isEmpty()) {
+          mid_ = other.mid_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object mid_ = "";
+      /**
+       * <code>string mid = 1;</code>
+       * @return The mid.
+       */
+      public java.lang.String getMid() {
+        java.lang.Object ref = mid_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          mid_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string mid = 1;</code>
+       * @return The bytes for mid.
+       */
+      public com.google.protobuf.ByteString
+          getMidBytes() {
+        java.lang.Object ref = mid_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          mid_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string mid = 1;</code>
+       * @param value The mid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMid(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        mid_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string mid = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMid() {
+        
+        mid_ = getDefaultInstance().getMid();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string mid = 1;</code>
+       * @param value The bytes for mid to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMidBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        mid_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:sd2526.trab.api.grpc.DeleteMessageInternalArgs)
+    }
+
+    // @@protoc_insertion_point(class_scope:sd2526.trab.api.grpc.DeleteMessageInternalArgs)
+    private static final sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs();
+    }
+
+    public static sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<DeleteMessageInternalArgs>
+        PARSER = new com.google.protobuf.AbstractParser<DeleteMessageInternalArgs>() {
+      @java.lang.Override
+      public DeleteMessageInternalArgs parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new DeleteMessageInternalArgs(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<DeleteMessageInternalArgs> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<DeleteMessageInternalArgs> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_sd2526_trab_api_grpc_GrpcMessage_descriptor;
   private static final 
@@ -8198,6 +9541,16 @@ public final class MessagesProtoBuf {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_sd2526_trab_api_grpc_SearchInboxResult_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sd2526_trab_api_grpc_ForwardMessageArgs_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sd2526_trab_api_grpc_ForwardMessageArgs_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_sd2526_trab_api_grpc_DeleteMessageInternalArgs_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_sd2526_trab_api_grpc_DeleteMessageInternalArgs_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -8224,24 +9577,32 @@ public final class MessagesProtoBuf {
       "\021DeleteMessageArgs\022\014\n\004name\030\001 \001(\t\022\013\n\003mid\030" +
       "\002 \001(\t\022\013\n\003pwd\030\003 \001(\t\";\n\017SearchInboxArgs\022\014\n" +
       "\004name\030\001 \001(\t\022\013\n\003pwd\030\002 \001(\t\022\r\n\005query\030\003 \001(\t\"" +
-      "!\n\021SearchInboxResult\022\014\n\004mids\030\001 \003(\t2\322\004\n\014G" +
-      "rpcMessages\022]\n\013PostMessage\022%.sd2526.trab" +
-      ".api.grpc.PostMessageArgs\032\'.sd2526.trab." +
-      "api.grpc.PostMessageResult\022_\n\017GetInboxMe" +
-      "ssage\022).sd2526.trab.api.grpc.GetInboxMes" +
-      "sageArgs\032!.sd2526.trab.api.grpc.GrpcMess" +
-      "age\022u\n\023GetAllInboxMessages\022-.sd2526.trab" +
-      ".api.grpc.GetAllInboxMessagesArgs\032/.sd25" +
-      "26.trab.api.grpc.GetAllInboxMessagesResu" +
-      "lt\022Z\n\022RemoveInboxMessage\022,.sd2526.trab.a" +
-      "pi.grpc.RemoveInboxMessageArgs\032\026.google." +
-      "protobuf.Empty\022P\n\rDeleteMessage\022\'.sd2526" +
-      ".trab.api.grpc.DeleteMessageArgs\032\026.googl" +
-      "e.protobuf.Empty\022]\n\013SearchInbox\022%.sd2526" +
-      ".trab.api.grpc.SearchInboxArgs\032\'.sd2526." +
-      "trab.api.grpc.SearchInboxResultB:\n&sd252" +
-      "6.trab.server.grpc.generated_javaB\020Messa" +
-      "gesProtoBufb\006proto3"
+      "!\n\021SearchInboxResult\022\014\n\004mids\030\001 \003(\t\"U\n\022Fo" +
+      "rwardMessageArgs\022\013\n\003mid\030\001 \001(\t\0222\n\007message" +
+      "\030\002 \001(\0132!.sd2526.trab.api.grpc.GrpcMessag" +
+      "e\"(\n\031DeleteMessageInternalArgs\022\013\n\003mid\030\001 " +
+      "\001(\t2\210\006\n\014GrpcMessages\022]\n\013PostMessage\022%.sd" +
+      "2526.trab.api.grpc.PostMessageArgs\032\'.sd2" +
+      "526.trab.api.grpc.PostMessageResult\022_\n\017G" +
+      "etInboxMessage\022).sd2526.trab.api.grpc.Ge" +
+      "tInboxMessageArgs\032!.sd2526.trab.api.grpc" +
+      ".GrpcMessage\022u\n\023GetAllInboxMessages\022-.sd" +
+      "2526.trab.api.grpc.GetAllInboxMessagesAr" +
+      "gs\032/.sd2526.trab.api.grpc.GetAllInboxMes" +
+      "sagesResult\022Z\n\022RemoveInboxMessage\022,.sd25" +
+      "26.trab.api.grpc.RemoveInboxMessageArgs\032" +
+      "\026.google.protobuf.Empty\022P\n\rDeleteMessage" +
+      "\022\'.sd2526.trab.api.grpc.DeleteMessageArg" +
+      "s\032\026.google.protobuf.Empty\022]\n\013SearchInbox" +
+      "\022%.sd2526.trab.api.grpc.SearchInboxArgs\032" +
+      "\'.sd2526.trab.api.grpc.SearchInboxResult" +
+      "\022R\n\016ForwardMessage\022(.sd2526.trab.api.grp" +
+      "c.ForwardMessageArgs\032\026.google.protobuf.E" +
+      "mpty\022`\n\025DeleteMessageInternal\022/.sd2526.t" +
+      "rab.api.grpc.DeleteMessageInternalArgs\032\026" +
+      ".google.protobuf.EmptyB:\n&sd2526.trab.se" +
+      "rver.grpc.generated_javaB\020MessagesProtoB" +
+      "ufb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -8308,6 +9669,18 @@ public final class MessagesProtoBuf {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_sd2526_trab_api_grpc_SearchInboxResult_descriptor,
         new java.lang.String[] { "Mids", });
+    internal_static_sd2526_trab_api_grpc_ForwardMessageArgs_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_sd2526_trab_api_grpc_ForwardMessageArgs_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sd2526_trab_api_grpc_ForwardMessageArgs_descriptor,
+        new java.lang.String[] { "Mid", "Message", });
+    internal_static_sd2526_trab_api_grpc_DeleteMessageInternalArgs_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_sd2526_trab_api_grpc_DeleteMessageInternalArgs_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_sd2526_trab_api_grpc_DeleteMessageInternalArgs_descriptor,
+        new java.lang.String[] { "Mid", });
     com.google.protobuf.EmptyProto.getDescriptor();
   }
 
