@@ -29,10 +29,11 @@ public class JavaMessages implements Messages {
   private static Logger Log = Logger.getLogger(JavaUsers.class.getName());
 
   private static final long DELETE_WINDOW_MS = 30_000;
+  private static final long TIMEOUT_MS = 55_000L;
 
   private final String localDomain;
 
-  private final Map<String, BlockingQueue<Runnable>> domainQueues = new ConcurrentHashMap<>();
+  private final Map<String, BlockingQueue<Runnable[]>> domainQueues = new ConcurrentHashMap<>();
 
   // Guarda todas as mensagens: msgId -> Message
   private final Map<String, Message> allMessages = new ConcurrentHashMap<>();
@@ -57,119 +58,142 @@ public class JavaMessages implements Messages {
   }
 
   @Override
-  public Result<String> postMessage(String pwd, Message msg) {
+public Result<String> postMessage(String pwd, Message msg) {
 
-    if (pwd == null || msg == null || msg.getContents() == null || msg.getCreationTime() == 0
-        || msg.getDestination() == null
-        || msg.getSender() == null || msg.getSubject() == null) {
-      return Result.error(ErrorCode.BAD_REQUEST);
-    }
+  if (pwd == null || msg == null || msg.getContents() == null || msg.getCreationTime() == 0
+      || msg.getDestination() == null
+      || msg.getSender() == null || msg.getSubject() == null) {
+    return Result.error(ErrorCode.BAD_REQUEST);
+  }
 
-    String senderName = extractUser(msg.getSender());
-    String senderDomain = extractDomain(msg.getSender());
+  String senderName = extractUser(msg.getSender());
+  String senderDomain = extractDomain(msg.getSender());
 
-    Users userClient = UsersClientFactory.get(senderDomain);
-    Result<User> auth = userClient.getUser(senderName, pwd);
+  Users userClient = UsersClientFactory.get(senderDomain);
+  Result<User> auth = userClient.getUser(senderName, pwd);
 
-    if (!auth.isOK()) {
-      return Result.error(ErrorCode.FORBIDDEN);
-    }
+  if (!auth.isOK()) {
+    return Result.error(ErrorCode.FORBIDDEN);
+  }
 
-    User user = auth.value();
+  User user = auth.value();
 
-    String msgId = (msg.getId() != null && !msg.getId().isBlank())
-        ? msg.getId()
-        : UUID.randomUUID().toString();
+  String msgId = (msg.getId() != null && !msg.getId().isBlank())
+      ? msg.getId()
+      : UUID.randomUUID().toString();
 
-    msg.setId(msgId);
-    msg.setSender(user.getDisplayName() + " <" + user.getName() + "@" + user.getDomain() + ">");
+  msg.setId(msgId);
+  msg.setSender(user.getDisplayName() + " <" + user.getName() + "@" + user.getDomain() + ">");
 
-    if (allMessages.containsKey(msgId)) {
-      return Result.ok(msgId);
-    }
+  if (allMessages.containsKey(msgId)) {
+    return Result.ok(msgId);
+  }
 
-    allMessages.put(msgId, msg);
-    hibernate.persist(msg);
+  allMessages.put(msgId, msg);
+  hibernate.persist(msg);
 
-    Map<String, List<String>> remoteByDomain = new HashMap<>();
+  Map<String, List<String>> remoteByDomain = new HashMap<>();
 
-    for (String destination : msg.getDestination()) {
-      String destDomain = extractDomain(destination);
-      String destUser = extractUser(destination);
+  // Destinos locais
+  for (String destination : msg.getDestination()) {
+    String destDomain = extractDomain(destination);
+    String destUser = extractUser(destination);
 
-      if (destDomain.equals(getLocalDomain())) {
-        try {
-          Users usersClient = UsersClientFactory.get(getLocalDomain());
-          Result<User> destCheck = usersClient.authenticateUser(destUser, "");
+    if (destDomain.equals(this.localDomain)) {
+    try {
+        Users usersClient = UsersClientFactory.get(getLocalDomain());
+        Result<User> destCheck = usersClient.authenticateUser(destUser, "");
+        
 
-          if (!destCheck.isOK() && destCheck.error() != ErrorCode.FORBIDDEN) {
-            // user não existe — notifica sender
-            String errorMid = msgId + "." + destination;
-            String errorSubject = "FAILED TO SEND " + msgId + " TO " + destination + ": UNKNOWN USER";
-            Message errorMsg = new Message(errorMid, msg.getSender(),
-                user.getName() + "@" + getLocalDomain(), errorSubject, msg.getContents());
-            errorMsg.setCreationTime(msg.getCreationTime());
-            allMessages.put(errorMid, errorMsg);
-            inboxes.computeIfAbsent(user.getName(), k -> ConcurrentHashMap.newKeySet()).add(errorMid);
-          } else {
-            storeMessageForUser(destUser, msgId);
-          }
-        } catch (Exception e) {
-          Log.warning("Excepção ao verificar destinatário " + destUser + ": " + e.getMessage());
+        if (destCheck.error() == ErrorCode.NOT_FOUND) {
+          String errorMid = msgId + "." + destination;
+          String errorSubject = "FAILED TO SEND " + msgId + " TO " + destination + ": UNKNOWN USER";
+          Message errorMsg = new Message(errorMid, msg.getSender(),
+              user.getName() + "@" + this.localDomain, errorSubject, msg.getContents());
+          errorMsg.setCreationTime(msg.getCreationTime());
+          allMessages.put(errorMid, errorMsg);
+          try { hibernate.persist(errorMsg); } catch (Exception ex) {}
+          storeMessageForUser(user.getName(), errorMid);
+        } else {
           storeMessageForUser(destUser, msgId);
         }
-      } else {
-        remoteByDomain.computeIfAbsent(destDomain, k -> new java.util.ArrayList<>()).add(destination);
+      } catch (Exception e) {
+        Log.warning("Excepção ao verificar destinatário " + destUser + ": " + e.getMessage());
+        storeMessageForUser(destUser, msgId);
       }
+    } else {
+      remoteByDomain.computeIfAbsent(destDomain, k -> new java.util.ArrayList<>()).add(destination);
     }
-
-    for (Map.Entry<String, List<String>> entry : remoteByDomain.entrySet()) {
-      String destDomain = entry.getKey();
-      List<String> domainDests = entry.getValue();
-
-      dispatchToDomain(destDomain, () -> {
-
-        try {
-          Users remoteUsers = UsersClientFactory.get(destDomain);
-          boolean anyValid = false;
-
-          for (String dest : domainDests) {
-            String destUser = extractUser(dest);
-            Result<User> destCheck = remoteUsers.authenticateUser(destUser, "");
-
-            if (!destCheck.isOK() && destCheck.error() != ErrorCode.FORBIDDEN) {
-              // Utilizador não existe — notifica o sender localmente
-              String errorMid = msgId + "." + dest;
-              String errorSubject = "FAILED TO SEND " + msgId + " TO " + dest + ": UNKNOWN USER";
-              Message errorMsg = new Message(errorMid, msg.getSender(),
-                  user.getName() + "@" + getLocalDomain(), errorSubject, msg.getContents());
-              errorMsg.setCreationTime(msg.getCreationTime());
-              allMessages.put(errorMid, errorMsg);
-              try {
-                hibernate.persist(errorMsg);
-              } catch (Exception ex) {
-                /* ignora */ }
-              storeMessageForUser(user.getName(), errorMid);
-            } else {
-              anyValid = true;
-            }
-          }
-
-          if (anyValid) {
-            Messages remoteClient = MessagesClientFactory.get(destDomain);
-            Result<Void> result = remoteClient.forwardMessage(msgId, msg);
-            if (!result.isOK()) {
-              Log.warning("Falha ao reencaminhar para " + destDomain + ": " + result.error());
-            }
-          }
-        } catch (Exception e) {
-          Log.warning("Erro ao contactar domínio remoto " + destDomain + ": " + e.getMessage());
-        }
-      });
-    }
-
-    return Result.ok(msg.getId());
   }
+
+  // Destinos remotos
+  for (Map.Entry<String, List<String>> entry : remoteByDomain.entrySet()) {
+    String destDomain = entry.getKey();
+    List<String> domainDests = entry.getValue();
+
+    String senderNameLocal = user.getName();
+    Message finalMsg = msg;
+    String finalMsgId = msgId;
+
+    // Callback de timeout: envia TIMEOUT ao remetente 
+    Runnable onTimeout = () -> {
+      for (String dest : domainDests) {
+        String errorMid = finalMsgId + "." + dest;
+        String errorSubject = "FAILED TO SEND " + finalMsgId + " TO " + dest + ": TIMEOUT";
+        Message errorMsg = new Message(
+            errorMid, finalMsg.getSender(),
+            senderNameLocal + "@" + localDomain,
+            errorSubject, finalMsg.getContents()
+        );
+        errorMsg.setCreationTime(System.currentTimeMillis());
+        allMessages.put(errorMid, errorMsg);
+        try { hibernate.persist(errorMsg); } catch (Exception ex) {}
+        storeMessageForUser(senderNameLocal, errorMid);
+      }
+    };
+
+    // Task principal: verifica users remotos e faz forward 
+    dispatchToDomain(destDomain, () -> {
+      try {
+        Users remoteUsers = UsersClientFactory.get(destDomain);
+        boolean anyValid = false;
+
+        for (String dest : domainDests) {
+          String destUser = extractUser(dest);
+          Result<User> destCheck = remoteUsers.authenticateUser(destUser, "");
+
+          if (destCheck.error() == ErrorCode.NOT_FOUND) {
+            String errorMid = finalMsgId + "." + dest;
+            String errorSubject = "FAILED TO SEND " + finalMsgId + " TO " + dest + ": UNKNOWN USER";
+            Message errorMsg = new Message(
+                errorMid, finalMsg.getSender(),
+                senderNameLocal + "@" + localDomain,
+                errorSubject, finalMsg.getContents()
+            );
+            errorMsg.setCreationTime(finalMsg.getCreationTime());
+            allMessages.put(errorMid, errorMsg);
+            try { hibernate.persist(errorMsg); } catch (Exception ex) {}
+            storeMessageForUser(senderNameLocal, errorMid);
+          } else {
+            anyValid = true;
+          }
+        }
+
+        if (anyValid) {
+          Messages remoteClient = MessagesClientFactory.get(destDomain);
+          Result<Void> result = remoteClient.forwardMessage(finalMsgId, finalMsg);
+          if (!result.isOK()) {
+            throw new RuntimeException("Falha ao reencaminhar: " + result.error());
+          }
+        }
+      } catch (Exception e) {
+        throw new RuntimeException(e);
+      }
+    }, onTimeout);
+  }
+
+  return Result.ok(msg.getId());
+}
 
   @Override
   public Result<Message> getInboxMessage(String name, String mid, String pwd) {
@@ -290,7 +314,7 @@ public class JavaMessages implements Messages {
           } catch (Exception e) {
             throw new RuntimeException(e);
           }
-        });
+        }, null);
       }
     }
     allMessages.remove(mid);
@@ -367,7 +391,7 @@ public class JavaMessages implements Messages {
     return user;
   }
 
-  /** Persiste a mensagem no inbox do usuário local */
+  // Persiste a mensagem no inbox do usuário local
   private void storeMessageForUser(String username, String msgId) {
     inboxes.computeIfAbsent(username, k -> ConcurrentHashMap.newKeySet())
         .add(msgId);
@@ -380,47 +404,55 @@ public class JavaMessages implements Messages {
     return sender;
   }
 
-  // IA metodo para o teste 10d) ter o envio de msg assicrono
-  private void dispatchToDomain(String destDomain, Runnable task) {
-    domainQueues.computeIfAbsent(destDomain, d -> {
-      BlockingQueue<Runnable> q = new LinkedBlockingQueue<>();
-      Thread worker = new Thread(() -> {
-        while (true) {
-          try {
-            Runnable r = q.take();
-            boolean done = false;
-            long startTime = System.currentTimeMillis();
-            long timeoutMs = 90_000;
-            while (!done) {
-              try {
-                r.run();
-                done = true;
-              } catch (Exception e) {
-                long elapsed = System.currentTimeMillis() - startTime;
-                if (elapsed >= timeoutMs) {
-                  Log.warning("Timeout para domínio " + d + " após " + elapsed + "ms");
-                  done = true; // desiste
-                } else {
-                Log.warning("Retry para domínio " + d + ": " + e.getMessage());
-                try {
-                  Thread.sleep(1000);
-                } catch (InterruptedException ie) {
-                  Thread.currentThread().interrupt();
+  
+  private void dispatchToDomain(String destDomain, Runnable task, Runnable onTimeout) {
+  domainQueues.computeIfAbsent(destDomain, d -> {
+    BlockingQueue<Runnable[]> q = new LinkedBlockingQueue<>();
+    Thread worker = new Thread(() -> {
+      while (true) {
+        try {
+          Runnable[] pair = q.take();
+          Runnable r = pair[0];
+          Runnable timeoutCb = pair[1];
+          final long startTime = System.currentTimeMillis();
+          boolean succeeded = false;
+
+          while (!succeeded) {
+            long elapsed = System.currentTimeMillis() - startTime;
+            if (elapsed >= TIMEOUT_MS) {
+              if (timeoutCb != null) {
+                try { timeoutCb.run(); } catch (Exception ex) {}
+              }
+              break;
+            }
+            try {
+              r.run();
+              succeeded = true;
+            } catch (Exception e) {
+              elapsed = System.currentTimeMillis() - startTime;
+              if (elapsed >= TIMEOUT_MS) {
+                if (timeoutCb != null) {
+                  try { timeoutCb.run(); } catch (Exception ex) {}
                 }
+                break;
+              }
+              try { Thread.sleep(1000); } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+                break;
               }
             }
-            }
-          } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            break;
           }
+        } catch (InterruptedException e) {
+          Thread.currentThread().interrupt();
+          break;
         }
-      });
-      worker.setDaemon(true);
-      worker.start();
-      return q;
-    }).add(task);
-  }
+      }
+    });
+    worker.setDaemon(true);
+    worker.start();
+    return q;
+  }).add(new Runnable[]{task, onTimeout});
+}
 
 
 }

@@ -79,7 +79,6 @@ sd2526\trab\server\grpc\generated_java\UsersProtoBuf$UpdateUserArgs.class
 sd2526\trab\server\grpc\generated_java\UsersProtoBuf$UpdateUserArgsOrBuilder.class
 sd2526\trab\server\grpc\GrpcUsersServer.class
 sd2526\trab\server\rest\RestUsersResource.class
-sd2526\trab\client\grpc\GrpcClient$1.class
 sd2526\trab\server\grpc\generated_java\MessagesProtoBuf$ForwardMessageArgsOrBuilder.class
 sd2526\trab\server\grpc\generated_java\GrpcMessagesGrpc$3.class
 sd2526\trab\server\grpc\generated_java\GrpcMessagesGrpc$GrpcMessagesMethodDescriptorSupplier.class
