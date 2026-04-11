@@ -74,7 +74,8 @@ public class RestMessagesResource extends RestResource implements RestMessages {
     private static String getDomainFromHostname() {
         try {
             String hostname = java.net.InetAddress.getLocalHost().getHostName();
-            return hostname.split("\\.")[1];
+        String[] parts = hostname.split("\\.");
+        return parts[parts.length - 1];
         } catch (Exception e) {
             return "local";
         }
