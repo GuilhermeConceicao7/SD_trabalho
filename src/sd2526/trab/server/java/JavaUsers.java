@@ -76,15 +76,15 @@ public class JavaUsers implements Users {
     try {
       user = hibernate.get(User.class, name);
     } catch (Exception x) {
-      x.printStackTrace(); // Un-expected exception. Signal internal server error.
+      x.printStackTrace();
       return Result.error(ErrorCode.INTERNAL_ERROR);
     }
 
     if (user == null) {
-    return Result.error(ErrorCode.FORBIDDEN); 
+      return Result.error(ErrorCode.FORBIDDEN);
     }
     if (!user.getPwd().equals(pwd)) {
-    return Result.error(ErrorCode.FORBIDDEN);
+      return Result.error(ErrorCode.FORBIDDEN);
     }
 
     return Result.ok(user);
@@ -126,7 +126,7 @@ public class JavaUsers implements Users {
       return Result.ok(user);
 
     } catch (Exception x) {
-      x.printStackTrace(); // Un-expected exception. Signal internal server error.
+      x.printStackTrace();
       return Result.error(ErrorCode.INTERNAL_ERROR);
     }
 
@@ -173,7 +173,7 @@ public class JavaUsers implements Users {
       user = hibernate.get(User.class, name);
 
     } catch (Exception x) {
-      x.printStackTrace(); // Un-expected exception. Signal internal server error.
+      x.printStackTrace();
       return Result.error(ErrorCode.INTERNAL_ERROR);
     }
 

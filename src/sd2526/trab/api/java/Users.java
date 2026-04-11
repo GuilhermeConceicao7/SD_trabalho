@@ -83,6 +83,16 @@ public interface Users {
 	 */
 	Result<List<User>> searchUsers(String name, String pwd, String query);
 
+	/**
+	 * Authenticates a user with the given username and password.
+	 * 
+	 * @param sender - the username of the user attempting authentication
+	 * @param pwd    - password of the user
+	 * @return (OK with the user if authentication succeeds.) .
+	 *         FORBIDDEN if the password is incorrect
+	 *         NOT_FOUND if the user does not exist
+	 *         BAD_REQUEST if the parameters are invalid (eg., null parameters).
+	 */
 	Result<User> authenticateUser(String sender, String pwd);
 
 }

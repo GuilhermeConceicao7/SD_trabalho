@@ -9,9 +9,7 @@ import io.grpc.ServerServiceDefinition;
 import io.grpc.stub.StreamObserver;
 
 import sd2526.trab.api.java.Messages;
-import sd2526.trab.api.java.Users;
 import sd2526.trab.server.grpc.generated_java.GrpcMessagesGrpc;
-import sd2526.trab.server.grpc.generated_java.GrpcUsersGrpc;
 import sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageArgs;
 import sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GetAllInboxMessagesArgs;
 import sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.GetAllInboxMessagesResult;
@@ -25,9 +23,7 @@ import sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.SearchInboxResult
 import sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.ForwardMessageArgs;
 import sd2526.trab.server.grpc.generated_java.MessagesProtoBuf.DeleteMessageInternalArgs;
 import sd2526.trab.server.java.JavaMessages;
-import sd2526.trab.server.java.JavaUsers;
 import sd2526.trab.server.util.DataModelAdaptor;
-
 
 public class GrpcMessagesController extends GrpcController implements GrpcMessagesGrpc.AsyncService, BindableService {
 
@@ -86,16 +82,16 @@ public class GrpcMessagesController extends GrpcController implements GrpcMessag
     }
 
     @Override
-public void forwardMessage(ForwardMessageArgs request, StreamObserver<Empty> responseObserver) {
-    super.toGrpcResult(responseObserver,
-            impl.forwardMessage(request.getMid(), DataModelAdaptor.GrpcMessage_to_Message(request.getMessage())),
-            (v) -> Empty.getDefaultInstance());
-}
+    public void forwardMessage(ForwardMessageArgs request, StreamObserver<Empty> responseObserver) {
+        super.toGrpcResult(responseObserver,
+                impl.forwardMessage(request.getMid(), DataModelAdaptor.GrpcMessage_to_Message(request.getMessage())),
+                (v) -> Empty.getDefaultInstance());
+    }
 
-@Override
-public void deleteMessageInternal(DeleteMessageInternalArgs request, StreamObserver<Empty> responseObserver) {
-    super.toGrpcResult(responseObserver,
-            impl.deleteMessageInternal(request.getMid()),
-            (v) -> Empty.getDefaultInstance());
-}
+    @Override
+    public void deleteMessageInternal(DeleteMessageInternalArgs request, StreamObserver<Empty> responseObserver) {
+        super.toGrpcResult(responseObserver,
+                impl.deleteMessageInternal(request.getMid()),
+                (v) -> Empty.getDefaultInstance());
+    }
 }

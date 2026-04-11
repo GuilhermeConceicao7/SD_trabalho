@@ -4,17 +4,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.hsqldb.persist.Log;
-
 import jakarta.inject.Singleton;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
 
 import sd2526.trab.api.User;
 import sd2526.trab.api.java.Result;
 import sd2526.trab.api.rest.RestUsers;
 import sd2526.trab.client.java.UsersClientFactory;
-import sd2526.trab.server.java.JavaUsers;
 
 @Singleton
 public class RestGatewayUsersResource implements RestUsers {

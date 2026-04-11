@@ -304,7 +304,6 @@ public class JavaMessages implements Messages {
   public Result<Void> forwardMessage(String mid, Message msg) {
     msg.setId(mid);
 
-    // Se já existe, retorna imediatamente (atómico, sem race condition)
     if (allMessages.putIfAbsent(mid, msg) != null) {
       return Result.ok();
     }
@@ -324,8 +323,8 @@ public class JavaMessages implements Messages {
       String destDomain = extractDomain(destination);
 
       if (destDomain.equals(getLocalDomain())) {
-    storeMessageForUser(destUser, mid);
-}
+        storeMessageForUser(destUser, mid);
+      }
     }
 
     return Result.ok();
@@ -336,7 +335,7 @@ public class JavaMessages implements Messages {
 
     Message msg = allMessages.get(mid);
     if (msg == null)
-      return Result.ok(); // idempotente
+      return Result.ok();
 
     allMessages.remove(mid);
     hibernate.delete(msg);
@@ -401,14 +400,14 @@ public class JavaMessages implements Messages {
                   Log.warning("Timeout para domínio " + d + " após " + elapsed + "ms");
                   done = true; // desiste
                 } else {
-                Log.warning("Retry para domínio " + d + ": " + e.getMessage());
-                try {
-                  Thread.sleep(1000);
-                } catch (InterruptedException ie) {
-                  Thread.currentThread().interrupt();
+                  Log.warning("Retry para domínio " + d + ": " + e.getMessage());
+                  try {
+                    Thread.sleep(1000);
+                  } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                  }
                 }
               }
-            }
             }
           } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -421,6 +420,5 @@ public class JavaMessages implements Messages {
       return q;
     }).add(task);
   }
-
 
 }

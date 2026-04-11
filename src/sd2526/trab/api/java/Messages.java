@@ -107,8 +107,21 @@ public interface Messages {
 	 */
 	Result<List<String>> searchInbox(String name, String pwd, String query);
 
-	Result<Void> forwardMessage(String msgId, Message msg);
+	/**
+	 * Sends the message for all the destinations
+	 * 
+	 * @param mid the identifier of the message to be sent
+	 * @param msg the message to be send
+	 * @return NO_CONTENT if ok
+	 */
+	Result<Void> forwardMessage(String mid, Message msg);
 
-	Result<Void> deleteMessageInternal(String finalMid);
+	/**
+	 * Deletes the message in all inboxes
+	 * 
+	 * @param mid the identifier of the message to be deleted
+	 * @return NO_CONTENT if ok
+	 */
+	Result<Void> deleteMessageInternal(String mid);
 
 }

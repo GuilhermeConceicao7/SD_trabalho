@@ -4,7 +4,6 @@ import java.util.List;
 
 import jakarta.inject.Singleton;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
 
 import sd2526.trab.api.Message;
 import sd2526.trab.api.java.Result;
